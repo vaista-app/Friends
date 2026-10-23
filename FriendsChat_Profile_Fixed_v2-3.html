@@ -1,0 +1,5973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>Friends</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#111111;
+
+    --glass:rgba(36,36,36,.68);
+    --glass2:rgba(52,48,37,.72);
+
+    --text:#f5f0df;
+    --muted:#b5ad96;
+    --black:#080808;
+
+    --line:rgba(224,184,75,.35);
+
+    --shadow:
+        0 12px 32px rgba(0,0,0,.055),
+        inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:
+        radial-gradient(
+            circle at 0% 0%,
+            #fff 0,
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 100% 15%,
+            #e4e7eb 0,
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #fafafa,
+            #eceef1
+        );
+
+    color:var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Inter,
+        Arial,
+        sans-serif;
+
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   SVG ICONS
+===================================================== */
+
+.icon{
+    width:21px;
+    height:21px;
+    display:block;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.9;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.icon-small{
+    width:18px;
+    height:18px;
+}
+
+.icon-large{
+    width:27px;
+    height:27px;
+}
+
+
+/* =====================================================
+   GLASS
+===================================================== */
+
+.glass{
+    background:rgba(255,255,255,.25);
+
+    border:1px solid rgba(255,255,255,.55);
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.055),
+        inset 0 1px 0 rgba(255,255,255,.55);
+
+    backdrop-filter:
+        blur(12px)
+        saturate(110%);
+
+    -webkit-backdrop-filter:
+        blur(12px)
+        saturate(110%);
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+    width:100%;
+    max-width:650px;
+    min-height:100vh;
+    min-height:100dvh;
+    margin:auto;
+
+    padding:
+        16px
+        16px
+        110px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:sticky;
+    top:12px;
+    z-index:30;
+
+    min-height:65px;
+
+    display:flex;
+    align-items:center;
+
+    padding:10px 18px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.34);
+
+    border:1px solid rgba(255,255,255,.55);
+
+    backdrop-filter:
+        blur(12px)
+        saturate(110%);
+
+    -webkit-backdrop-filter:
+        blur(12px)
+        saturate(110%);
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.055),
+        inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.brand-dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#111;
+
+    box-shadow:
+        0 0 0 5px rgba(255,255,255,.35),
+        0 4px 10px rgba(0,0,0,.12);
+}
+
+.brand-name{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:-.7px;
+}
+
+
+/* =====================================================
+   PAGES
+===================================================== */
+
+.page{
+    display:none;
+    animation:pageIn .24s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    padding:34px 4px 20px;
+}
+
+.eyebrow{
+    color:var(--muted);
+    font-size:13px;
+    font-weight:650;
+    margin-bottom:8px;
+}
+
+.hero h1{
+    font-size:42px;
+    line-height:1;
+    letter-spacing:-2px;
+    font-weight:850;
+}
+
+.hero p{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search{
+    height:53px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:0 16px;
+
+    border-radius:19px;
+
+    margin-bottom:23px;
+}
+
+.search input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--text);
+    font-size:15px;
+}
+
+.search input::placeholder{
+    color:#92949a;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin:25px 3px 12px;
+}
+
+.section-title h2{
+    font-size:16px;
+    font-weight:750;
+    letter-spacing:-.3px;
+}
+
+.section-title span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.quick{
+    min-height:105px;
+    padding:14px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    border-radius:24px;
+    cursor:pointer;
+
+    transition:transform .18s ease;
+}
+
+.quick:active{
+    transform:scale(.96);
+}
+
+.quick-icon{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.35);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.65),
+        0 5px 12px rgba(0,0,0,.035);
+}
+
+.quick-title{
+    font-size:13px;
+    font-weight:750;
+}
+
+.quick-sub{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+
+/* =====================================================
+   FRIEND / GROUP LIST
+===================================================== */
+
+.friend-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.friend{
+    min-height:75px;
+
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:12px;
+
+    border-radius:23px;
+    cursor:pointer;
+
+    transition:transform .18s ease;
+}
+
+.friend:active{
+    transform:scale(.985);
+}
+
+.avatar{
+    width:49px;
+    height:49px;
+
+    flex:none;
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #d9dce1
+        );
+
+    color:#18181a;
+
+    font-size:17px;
+    font-weight:800;
+
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,.8),
+        0 7px 17px rgba(0,0,0,.08);
+}
+
+.group-avatar{
+    border-radius:17px;
+}
+
+.online{
+    position:absolute;
+
+    width:11px;
+    height:11px;
+
+    right:0;
+    bottom:1px;
+
+    border-radius:50%;
+
+    background:var(--status-dot, #d7b64c);
+    border:2px solid var(--status-ring, #f5f0df);
+}
+body[data-theme="mono"]{--status-dot:#171717;--status-ring:#fff;}
+body[data-theme="blue"]{--status-dot:#78bdff;--status-ring:#10243d;}
+body[data-theme="pink"]{--status-dot:#ff8bc7;--status-ring:#321528;}
+body[data-theme="green"]{--status-dot:#7ad5a2;--status-ring:#092017;}
+
+.friend-info{
+    min-width:0;
+    flex:1;
+}
+
+.friend-name{
+    font-size:15px;
+    font-weight:750;
+
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.friend-status{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.chevron{
+    color:#a1a3a8;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--muted);
+}
+
+.empty-icon{
+    width:64px;
+    height:64px;
+
+    margin:0 auto 14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:21px;
+
+    background:rgba(255,255,255,.35);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.045),
+        inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+.empty strong{
+    display:block;
+    color:var(--text);
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.empty span{
+    font-size:12px;
+}
+
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+.chat-page{
+    padding-top:10px;
+}
+
+.chat-top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:8px 3px 14px;
+}
+
+.back-btn{
+    width:43px;
+    height:43px;
+
+    flex:none;
+
+    border:0;
+    border-radius:15px;
+
+    background:rgba(255,255,255,.35);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#222;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.6),
+        0 5px 14px rgba(0,0,0,.04);
+}
+
+.back-btn:active{
+    transform:scale(.91);
+}
+
+.chat-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    min-width:0;
+    flex:1;
+}
+
+.chat-user .avatar{
+    width:43px;
+    height:43px;
+    font-size:15px;
+}
+
+.chat-details{
+    min-width:0;
+}
+
+.chat-name{
+    font-size:16px;
+    font-weight:780;
+
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.chat-state{
+    color:#70737a;
+    font-size:11px;
+    margin-top:3px;
+}
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+.messages{
+    height:calc(100dvh - 175px);
+
+    min-height:0;
+    max-height:none;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+    gap:8px;
+
+    padding:
+        10px
+        2px
+        125px;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    scrollbar-width:none;
+
+    -webkit-overflow-scrolling:touch;
+
+    overscroll-behavior-y:contain;
+
+    touch-action:pan-y;
+}
+
+.messages::-webkit-scrollbar{
+    display:none;
+}
+
+.message-row{
+    display:flex;
+    width:100%;
+    flex:none;
+}
+
+.message-row.mine{
+    justify-content:flex-end;
+}
+
+.bubble{
+    max-width:78%;
+
+    padding:12px 15px;
+
+    border-radius:21px;
+
+    font-size:14px;
+    line-height:1.45;
+
+    word-break:break-word;
+
+    box-shadow:
+        0 6px 16px rgba(0,0,0,.045),
+        inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+.mine .bubble{
+    color:white;
+    background:#111113;
+
+    border-bottom-right-radius:7px;
+
+    box-shadow:
+        0 9px 22px rgba(0,0,0,.15);
+}
+
+.theirs .bubble{
+    color:#171719;
+
+    background:rgba(255,255,255,.38);
+
+    border-bottom-left-radius:7px;
+
+    box-shadow:
+        0 5px 14px rgba(0,0,0,.035),
+        inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+.time{
+    display:block;
+    font-size:9px;
+    opacity:.55;
+    margin-top:4px;
+}
+
+
+/* =====================================================
+   CHAT COMPOSER
+===================================================== */
+
+.composer-wrap{
+    position:fixed;
+
+    left:50%;
+    bottom:16px;
+
+    transform:translateX(-50%);
+
+    width:min(618px,calc(100% - 24px));
+
+    z-index:60;
+
+    pointer-events:none;
+}
+
+.composer{
+    min-height:68px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px;
+
+    border-radius:26px;
+
+    pointer-events:auto;
+
+    background:rgba(255,255,255,.38);
+
+    border:1px solid rgba(255,255,255,.55);
+
+    box-shadow:
+        0 12px 32px rgba(0,0,0,.09),
+        inset 0 1px 0 rgba(255,255,255,.65);
+
+    backdrop-filter:
+        blur(12px)
+        saturate(110%);
+
+    -webkit-backdrop-filter:
+        blur(12px)
+        saturate(110%);
+}
+
+.composer .icon-btn{
+    width:47px;
+    height:47px;
+
+    flex:none;
+
+    border:0;
+
+    background:rgba(255,255,255,.38);
+
+    border-radius:17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#222;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.65),
+        0 4px 12px rgba(0,0,0,.035);
+}
+
+.composer input{
+    flex:1;
+    min-width:0;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+    color:var(--text);
+
+    padding:0 6px;
+
+    font-size:15px;
+}
+
+.composer input::placeholder{
+    color:#909299;
+}
+
+.send-btn{
+    width:48px;
+    height:48px;
+
+    flex:none;
+
+    border:0;
+    border-radius:17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    background:#111113;
+
+    box-shadow:
+        0 9px 22px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.12);
+
+    transition:.15s ease;
+}
+
+.send-btn:active{
+    transform:scale(.9);
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav{
+    position:fixed;
+
+    left:50%;
+    bottom:14px;
+
+    transform:translateX(-50%);
+
+    width:min(400px,calc(100% - 28px));
+    height:65px;
+
+    padding:7px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:4px;
+
+    border-radius:24px;
+
+    z-index:45;
+
+    background:rgba(255,255,255,.38);
+
+    border:1px solid rgba(255,255,255,.55);
+
+    backdrop-filter:
+        blur(12px)
+        saturate(110%);
+
+    -webkit-backdrop-filter:
+        blur(12px)
+        saturate(110%);
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.065),
+        inset 0 1px 0 rgba(255,255,255,.65);
+
+    transition:
+        opacity .18s ease,
+        transform .18s ease;
+}
+
+.bottom-nav.hidden{
+    opacity:0;
+    pointer-events:none;
+
+    transform:
+        translate(-50%,20px);
+}
+
+.nav-btn{
+    position:relative;
+
+    border:0;
+    background:transparent;
+
+    border-radius:18px;
+
+    color:#85878d;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:.18s ease;
+}
+
+.nav-btn.active{
+    color:white;
+    background:#111113;
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,.16),
+        inset 0 1px 0 rgba(255,255,255,.13);
+}
+
+.nav-btn:active{
+    transform:scale(.9);
+}
+
+
+/* =====================================================
+   NOTIFICATION BADGE
+===================================================== */
+
+.notification-badge{
+    position:absolute;
+
+    top:8px;
+    right:17px;
+
+    min-width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#111;
+
+    border:2px solid white;
+
+    display:none;
+}
+
+.notification-badge.show{
+    display:block;
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+.overlay{
+    position:fixed;
+    inset:0;
+
+    z-index:100;
+
+    display:none;
+
+    align-items:flex-end;
+    justify-content:center;
+
+    background:rgba(0,0,0,.18);
+
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+}
+
+.overlay.show{
+    display:flex;
+}
+
+.sheet{
+    width:min(650px,100%);
+    max-height:90vh;
+    overflow:auto;
+
+    padding:8px 18px 30px;
+
+    border-radius:
+        32px
+        32px
+        0
+        0;
+
+    background:rgba(248,249,250,.82);
+
+    border:1px solid rgba(255,255,255,.65);
+
+    box-shadow:
+        0 -15px 55px rgba(0,0,0,.11),
+        inset 0 1px 0 rgba(255,255,255,.7);
+
+    backdrop-filter:
+        blur(14px)
+        saturate(115%);
+
+    -webkit-backdrop-filter:
+        blur(14px)
+        saturate(115%);
+
+    animation:sheetUp .25s ease;
+}
+
+@keyframes sheetUp{
+    from{
+        transform:translateY(100%);
+    }
+
+    to{
+        transform:translateY(0);
+    }
+}
+
+.handle{
+    width:42px;
+    height:5px;
+
+    margin:4px auto 23px;
+
+    border-radius:5px;
+
+    background:#c5c7ca;
+}
+
+.sheet-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:21px;
+}
+
+.sheet-head h2{
+    font-size:24px;
+    letter-spacing:-.9px;
+    font-weight:800;
+}
+
+.close{
+    width:37px;
+    height:37px;
+
+    border:0;
+    border-radius:13px;
+
+    background:#e8e9eb;
+    color:#222;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.close:active{
+    transform:scale(.9);
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group label{
+    display:block;
+
+    color:#707278;
+    font-size:12px;
+
+    margin:0 5px 7px;
+}
+
+.input{
+    width:100%;
+    height:53px;
+
+    border:1px solid rgba(255,255,255,.6);
+    outline:0;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.38);
+    color:var(--text);
+
+    padding:0 15px;
+
+    font-size:15px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.6),
+        0 6px 18px rgba(0,0,0,.025);
+}
+
+.input:focus{
+    border-color:#111;
+}
+
+.primary{
+    width:100%;
+    height:53px;
+
+    border:0;
+    border-radius:18px;
+
+    color:white;
+    background:#111113;
+
+    font-size:14px;
+    font-weight:750;
+
+    margin-top:7px;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.15),
+        inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile-card{
+    padding:18px;
+    border-radius:24px;
+    margin-bottom:12px;
+}
+
+.profile-main{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.profile-avatar{
+    width:62px;
+    height:62px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #d9dce1
+        );
+
+    font-size:21px;
+    font-weight:800;
+
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,.8),
+        0 8px 20px rgba(0,0,0,.08);
+}
+
+.profile-info{
+    min-width:0;
+}
+
+.profile-name{
+    font-size:19px;
+    font-weight:800;
+}
+
+.profile-username{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.profile-note{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.45;
+    margin-top:17px;
+}
+
+.profile-setting-btn{
+    width:100%;
+    height:52px;
+
+    margin-top:5px;
+
+    border:0;
+    border-radius:18px;
+
+    background:#111113;
+    color:white;
+
+    font-size:14px;
+    font-weight:750;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.setting{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:14px;
+    border-radius:21px;
+
+    margin-bottom:9px;
+}
+
+.setting-icon{
+    width:42px;
+    height:42px;
+
+    flex:none;
+
+    border-radius:15px;
+    background:rgba(255,255,255,.38);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.setting-info{
+    min-width:0;
+    flex:1;
+}
+
+.setting-title{
+    font-size:14px;
+    font-weight:750;
+}
+
+.setting-desc{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.35;
+    margin-top:3px;
+}
+
+.status-pill{
+    flex:none;
+
+    padding:7px 10px;
+
+    border-radius:12px;
+
+    color:white;
+    background:#111;
+
+    font-size:9px;
+    font-weight:800;
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+.notification-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.notification-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:13px;
+
+    border-radius:21px;
+
+    cursor:pointer;
+
+    background:rgba(255,255,255,.25);
+}
+
+.notification-item.unread{
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.07),
+        inset 0 0 0 1px rgba(17,17,19,.08);
+}
+
+.notification-avatar{
+    width:46px;
+    height:46px;
+
+    flex:none;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #d9dce1
+        );
+
+    font-weight:800;
+
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,.8),
+        0 6px 15px rgba(0,0,0,.07);
+}
+
+.notification-info{
+    min-width:0;
+    flex:1;
+}
+
+.notification-text{
+    font-size:13px;
+    line-height:1.4;
+}
+
+.notification-preview{
+    color:var(--muted);
+    font-size:11px;
+
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+
+    margin-top:3px;
+}
+
+.notification-time{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:4px;
+}
+
+.notification-unread-dot{
+    width:7px;
+    height:7px;
+
+    flex:none;
+
+    border-radius:50%;
+    background:#111;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    top:78px;
+
+    transform:translate(-50%,-12px);
+
+    opacity:0;
+    pointer-events:none;
+
+    z-index:200;
+
+    padding:11px 15px;
+
+    border-radius:15px;
+
+    background:rgba(20,20,22,.92);
+    color:white;
+
+    font-size:12px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.18);
+
+    transition:.25s ease;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:390px){
+
+    .app{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .quick-grid{
+        gap:7px;
+    }
+
+    .quick{
+        min-height:98px;
+        padding:12px;
+    }
+
+    .quick-icon{
+        width:37px;
+        height:37px;
+    }
+
+    .bubble{
+        max-width:84%;
+    }
+
+    .composer{
+        min-height:64px;
+    }
+
+    .messages{
+        height:calc(100dvh - 165px);
+        padding-bottom:120px;
+    }
+
+}
+
+
+/* =====================================================
+   SAFE AREA
+===================================================== */
+
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+
+    .bottom-nav{
+        bottom:
+            calc(
+                14px +
+                env(safe-area-inset-bottom)
+            );
+    }
+
+    .composer-wrap{
+        bottom:
+            calc(
+                16px +
+                env(safe-area-inset-bottom)
+            );
+    }
+
+}
+
+
+
+/* FIRST-OPEN GUEST LOGIN */
+.guest-login{
+    position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
+    padding:24px;background:radial-gradient(circle at 15% 5%,rgba(255,255,255,.98),transparent 40%),linear-gradient(145deg,#f8f9fb,#e7eaf0);
+}
+.guest-login.hidden{display:none}
+.guest-card{
+    width:min(100%,390px);padding:30px 24px 24px;border:1px solid rgba(255,255,255,.8);border-radius:30px;
+    background:rgba(255,255,255,.64);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    box-shadow:0 24px 70px rgba(20,25,40,.12),inset 0 1px 0 #fff;
+}
+.guest-mark{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:#111113;color:#fff;font-size:25px;font-weight:750;margin-bottom:24px;box-shadow:0 8px 24px rgba(0,0,0,.16)}
+.guest-card h1{font-size:30px;letter-spacing:-1.2px;line-height:1.1;margin-bottom:10px}
+.guest-card p{font-size:14px;line-height:1.55;color:#777b84;margin-bottom:25px}
+.guest-field{display:block;margin:0 0 15px;font-size:12px;font-weight:650;color:#555963}
+.guest-field input{display:block;width:100%;height:50px;margin-top:8px;padding:0 15px;border:1px solid rgba(20,20,25,.09);border-radius:15px;background:rgba(255,255,255,.78);color:#111113;font-size:15px;outline:none}
+.guest-field input:focus{border-color:#777b84;box-shadow:0 0 0 3px rgba(30,30,40,.06)}
+.guest-continue{width:100%;height:52px;margin-top:7px;border:0;border-radius:16px;background:#111113;color:#fff;font-size:15px;font-weight:650;cursor:pointer}
+.guest-note{font-size:11px!important;text-align:center;margin:15px 0 0!important;color:#858891!important}
+
+
+/* FRIENDS CHARCOAL + GOLD THEME OVERRIDE */
+body{background:radial-gradient(circle at 0% 0%,#292929 0,transparent 36%),radial-gradient(circle at 100% 12%,#4a3a16 0,transparent 34%),linear-gradient(145deg,#191919,#050505 72%) !important;color:#f5f0df !important;}
+.glass,.header,.quick,.friend,.chat-top,.composer,.bottom-nav,.sheet,.profile-card,.notification-item,.search,.input,.composer input{background:linear-gradient(145deg,rgba(48,48,48,.88),rgba(12,12,12,.91)) !important;border-color:rgba(220,178,63,.30) !important;color:#f5f0df !important;box-shadow:0 10px 28px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,220,130,.09) !important;}
+.brand-name,.hero h1,.section-title h2,.friend-name,.chat-name,.sheet-head h2,.profile-name,.notification-text,.setting-title{color:#fff4d1 !important;}
+.hero p,.muted,.friend-status,.chat-state,.section-title span,.setting-desc,.profile-username,.notification-preview,.time{color:#c1b796 !important;}
+.quick-icon,.avatar,.notification-avatar,.setting-icon{background:linear-gradient(135deg,#f4d77c,#a87919) !important;color:#17130a !important;border-color:rgba(255,224,135,.55) !important;}
+.primary,.send-btn,.nav-btn.active,.notification-badge,.status-pill{background:linear-gradient(135deg,#f5dc88,#b98520) !important;color:#17130a !important;border-color:#f2d47b !important;}
+button,.nav-btn,.back-btn,.close,.composer .icon-btn{color:#f3d77e;}
+.search input,.input,.composer input{color:#fff4d1 !important;}
+.search input::placeholder,.input::placeholder,.composer input::placeholder{color:#b5aa8b !important;}
+.bubble.theirs,.theirs .bubble{background:linear-gradient(135deg,#343434,#202020) !important;color:#fff4d1 !important;border:1px solid rgba(225,184,74,.22) !important;}
+.bubble.mine,.mine .bubble{background:linear-gradient(135deg,#f3d77e,#bd8a26) !important;color:#17130a !important;}
+.empty,.empty strong{color:#f5e7bf !important;}
+
+
+
+
+/* CUSTOM THEMES: live palette switching */
+.theme-picker-section{margin:4px 0 18px;padding:15px;border-radius:22px;background:linear-gradient(145deg,rgba(48,48,48,.86),rgba(12,12,12,.92));border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.theme-picker-heading{margin-bottom:12px}.theme-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.theme-option{display:flex;align-items:center;gap:9px;text-align:left;min-width:0;padding:10px 9px;border-radius:15px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#f6f6f6!important;font:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:transform .18s,border-color .18s,background .18s}
+.theme-option:active{transform:scale(.98)}.theme-option[aria-pressed="true"]{border-color:var(--theme-accent,#e6c45c);background:rgba(255,255,255,.09);box-shadow:0 0 0 1px var(--theme-accent,#e6c45c),0 0 18px color-mix(in srgb,var(--theme-accent,#e6c45c) 15%,transparent)}
+.theme-swatch{width:42px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;gap:3px;padding:4px;border-radius:9px;background:var(--swatch-bg);border:1px solid rgba(255,255,255,.2)}.theme-swatch i{display:block;width:8px;height:18px;border-radius:4px;background:var(--swatch-accent)}.theme-swatch i:nth-child(2){height:23px;background:var(--swatch-mid)}.theme-swatch i:nth-child(3){height:13px;background:var(--swatch-light)}
+.swatch-mono{--swatch-bg:linear-gradient(135deg,#fff,#cfd2d7);--swatch-accent:#111;--swatch-mid:#555;--swatch-light:#fff}.swatch-gold{--swatch-bg:linear-gradient(135deg,#252525,#080808);--swatch-accent:#a87919;--swatch-mid:#edca68;--swatch-light:#fff0b8}.swatch-blue{--swatch-bg:linear-gradient(135deg,#252e3d,#080d17);--swatch-accent:#326bd5;--swatch-mid:#78bfff;--swatch-light:#d8efff}.swatch-pink{--swatch-bg:linear-gradient(135deg,#38202f,#100810);--swatch-accent:#c63f88;--swatch-mid:#ff8bc7;--swatch-light:#ffe0f1}.swatch-green{--swatch-bg:linear-gradient(135deg,#183329,#06110c);--swatch-accent:#21865b;--swatch-mid:#7ad5a2;--swatch-light:#d6ffe5}
+body[data-theme="mono"]{--theme-accent:#171717!important;background:radial-gradient(circle at 0% 0%,#f4f4f4 0,transparent 36%),radial-gradient(circle at 100% 12%,#d7d7d7 0,transparent 34%),linear-gradient(145deg,#fff,#e5e5e5 72%)!important;color:#171717!important}
+body[data-theme="mono"] .glass,body[data-theme="mono"] .header,body[data-theme="mono"] .quick,body[data-theme="mono"] .friend,body[data-theme="mono"] .chat-top,body[data-theme="mono"] .composer,body[data-theme="mono"] .bottom-nav,body[data-theme="mono"] .sheet,body[data-theme="mono"] .profile-card,body[data-theme="mono"] .notification-item,body[data-theme="mono"] .search,body[data-theme="mono"] .input,body[data-theme="mono"] .composer input{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(224,224,224,.94))!important;border-color:rgba(20,20,20,.12)!important;color:#171717!important;box-shadow:0 10px 28px rgba(0,0,0,.08),inset 0 1px 0 #fff!important}
+body[data-theme="mono"] .brand-name,body[data-theme="mono"] .hero h1,body[data-theme="mono"] .section-title h2,body[data-theme="mono"] .friend-name,body[data-theme="mono"] .chat-name,body[data-theme="mono"] .sheet-head h2,body[data-theme="mono"] .profile-name,body[data-theme="mono"] .notification-text,body[data-theme="mono"] .setting-title{color:#111!important}body[data-theme="mono"] .hero p,body[data-theme="mono"] .muted,body[data-theme="mono"] .friend-status,body[data-theme="mono"] .chat-state,body[data-theme="mono"] .section-title span,body[data-theme="mono"] .setting-desc,body[data-theme="mono"] .profile-username,body[data-theme="mono"] .notification-preview,body[data-theme="mono"] .time{color:#666!important}
+body[data-theme="mono"] .quick-icon,body[data-theme="mono"] .avatar,body[data-theme="mono"] .notification-avatar,body[data-theme="mono"] .setting-icon,body[data-theme="mono"] .primary,body[data-theme="mono"] .send-btn,body[data-theme="mono"] .nav-btn.active,body[data-theme="mono"] .notification-badge,body[data-theme="mono"] .status-pill{background:linear-gradient(135deg,#333,#050505)!important;color:#fff!important;border-color:#444!important}
+body[data-theme="mono"] button,body[data-theme="mono"] .nav-btn,body[data-theme="mono"] .back-btn,body[data-theme="mono"] .close,body[data-theme="mono"] .composer .icon-btn{color:#222!important}body[data-theme="mono"] .bubble.mine,body[data-theme="mono"] .mine .bubble{background:linear-gradient(135deg,#333,#050505)!important;color:#fff!important}body[data-theme="mono"] .bubble.theirs,body[data-theme="mono"] .theirs .bubble{background:linear-gradient(135deg,#eee,#d5d5d5)!important;color:#171717!important;border:1px solid #ccc!important}
+body[data-theme="blue"]{--theme-accent:#69b8ff!important;background:radial-gradient(circle at 0% 0%,#203b5d 0,transparent 36%),radial-gradient(circle at 100% 12%,#102d66 0,transparent 34%),linear-gradient(145deg,#17212f,#050a13 72%)!important;color:#e7f3ff!important}
+body[data-theme="blue"] .glass,body[data-theme="blue"] .header,body[data-theme="blue"] .quick,body[data-theme="blue"] .friend,body[data-theme="blue"] .chat-top,body[data-theme="blue"] .composer,body[data-theme="blue"] .bottom-nav,body[data-theme="blue"] .sheet,body[data-theme="blue"] .profile-card,body[data-theme="blue"] .notification-item,body[data-theme="blue"] .search,body[data-theme="blue"] .input,body[data-theme="blue"] .composer input{background:linear-gradient(145deg,rgba(35,48,67,.94),rgba(7,13,24,.96))!important;border-color:rgba(91,167,255,.32)!important;color:#e7f3ff!important;box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(150,205,255,.1)!important}
+body[data-theme="blue"] .brand-name,body[data-theme="blue"] .hero h1,body[data-theme="blue"] .section-title h2,body[data-theme="blue"] .friend-name,body[data-theme="blue"] .chat-name,body[data-theme="blue"] .sheet-head h2,body[data-theme="blue"] .profile-name,body[data-theme="blue"] .notification-text,body[data-theme="blue"] .setting-title{color:#e5f3ff!important}body[data-theme="blue"] .hero p,body[data-theme="blue"] .muted,body[data-theme="blue"] .friend-status,body[data-theme="blue"] .chat-state,body[data-theme="blue"] .section-title span,body[data-theme="blue"] .setting-desc,body[data-theme="blue"] .profile-username,body[data-theme="blue"] .notification-preview,body[data-theme="blue"] .time{color:#a9c6e5!important}
+body[data-theme="blue"] .quick-icon,body[data-theme="blue"] .avatar,body[data-theme="blue"] .notification-avatar,body[data-theme="blue"] .setting-icon,body[data-theme="blue"] .primary,body[data-theme="blue"] .send-btn,body[data-theme="blue"] .nav-btn.active,body[data-theme="blue"] .notification-badge,body[data-theme="blue"] .status-pill{background:linear-gradient(135deg,#9bd8ff,#2763c7)!important;color:#061426!important;border-color:#78bdff!important}
+body[data-theme="blue"] button,body[data-theme="blue"] .nav-btn,body[data-theme="blue"] .back-btn,body[data-theme="blue"] .close,body[data-theme="blue"] .composer .icon-btn{color:#9bd8ff!important}body[data-theme="blue"] .bubble.mine,body[data-theme="blue"] .mine .bubble{background:linear-gradient(135deg,#9bd8ff,#2763c7)!important;color:#061426!important}body[data-theme="blue"] .bubble.theirs,body[data-theme="blue"] .theirs .bubble{background:linear-gradient(135deg,#29384b,#172333)!important;color:#e7f3ff!important;border:1px solid rgba(91,167,255,.25)!important}
+body[data-theme="pink"]{--theme-accent:#ff8bc7!important;background:radial-gradient(circle at 0% 0%,#4a213b 0,transparent 36%),radial-gradient(circle at 100% 12%,#511c4a 0,transparent 34%),linear-gradient(145deg,#251520,#09060b 72%)!important;color:#ffeaf5!important}
+body[data-theme="pink"] .glass,body[data-theme="pink"] .header,body[data-theme="pink"] .quick,body[data-theme="pink"] .friend,body[data-theme="pink"] .chat-top,body[data-theme="pink"] .composer,body[data-theme="pink"] .bottom-nav,body[data-theme="pink"] .sheet,body[data-theme="pink"] .profile-card,body[data-theme="pink"] .notification-item,body[data-theme="pink"] .search,body[data-theme="pink"] .input,body[data-theme="pink"] .composer input{background:linear-gradient(145deg,rgba(61,34,53,.94),rgba(15,8,16,.96))!important;border-color:rgba(255,111,188,.3)!important;color:#ffeaf5!important;box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,175,220,.1)!important}
+body[data-theme="pink"] .brand-name,body[data-theme="pink"] .hero h1,body[data-theme="pink"] .section-title h2,body[data-theme="pink"] .friend-name,body[data-theme="pink"] .chat-name,body[data-theme="pink"] .sheet-head h2,body[data-theme="pink"] .profile-name,body[data-theme="pink"] .notification-text,body[data-theme="pink"] .setting-title{color:#ffe5f3!important}body[data-theme="pink"] .hero p,body[data-theme="pink"] .muted,body[data-theme="pink"] .friend-status,body[data-theme="pink"] .chat-state,body[data-theme="pink"] .section-title span,body[data-theme="pink"] .setting-desc,body[data-theme="pink"] .profile-username,body[data-theme="pink"] .notification-preview,body[data-theme="pink"] .time{color:#d7a7c2!important}
+body[data-theme="pink"] .quick-icon,body[data-theme="pink"] .avatar,body[data-theme="pink"] .notification-avatar,body[data-theme="pink"] .setting-icon,body[data-theme="pink"] .primary,body[data-theme="pink"] .send-btn,body[data-theme="pink"] .nav-btn.active,body[data-theme="pink"] .notification-badge,body[data-theme="pink"] .status-pill{background:linear-gradient(135deg,#ffc1e2,#c23c86)!important;color:#260b1c!important;border-color:#ff8bc7!important}
+body[data-theme="pink"] button,body[data-theme="pink"] .nav-btn,body[data-theme="pink"] .back-btn,body[data-theme="pink"] .close,body[data-theme="pink"] .composer .icon-btn{color:#ff9bd0!important}body[data-theme="pink"] .bubble.mine,body[data-theme="pink"] .mine .bubble{background:linear-gradient(135deg,#ffc1e2,#c23c86)!important;color:#260b1c!important}body[data-theme="pink"] .bubble.theirs,body[data-theme="pink"] .theirs .bubble{background:linear-gradient(135deg,#44283c,#281729)!important;color:#ffeaf5!important;border:1px solid rgba(255,111,188,.25)!important}
+body[data-theme="green"]{--theme-accent:#7ad5a2!important;background:radial-gradient(circle at 0% 0%,#1e4a37 0,transparent 36%),radial-gradient(circle at 100% 12%,#164d34 0,transparent 34%),linear-gradient(145deg,#14271f,#040c08 72%)!important;color:#e5ffed!important}
+body[data-theme="green"] .glass,body[data-theme="green"] .header,body[data-theme="green"] .quick,body[data-theme="green"] .friend,body[data-theme="green"] .chat-top,body[data-theme="green"] .composer,body[data-theme="green"] .bottom-nav,body[data-theme="green"] .sheet,body[data-theme="green"] .profile-card,body[data-theme="green"] .notification-item,body[data-theme="green"] .search,body[data-theme="green"] .input,body[data-theme="green"] .composer input{background:linear-gradient(145deg,rgba(31,58,44,.94),rgba(5,15,10,.96))!important;border-color:rgba(93,211,145,.3)!important;color:#e5ffed!important;box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(155,255,194,.1)!important}
+body[data-theme="green"] .brand-name,body[data-theme="green"] .hero h1,body[data-theme="green"] .section-title h2,body[data-theme="green"] .friend-name,body[data-theme="green"] .chat-name,body[data-theme="green"] .sheet-head h2,body[data-theme="green"] .profile-name,body[data-theme="green"] .notification-text,body[data-theme="green"] .setting-title{color:#e1ffeb!important}body[data-theme="green"] .hero p,body[data-theme="green"] .muted,body[data-theme="green"] .friend-status,body[data-theme="green"] .chat-state,body[data-theme="green"] .section-title span,body[data-theme="green"] .setting-desc,body[data-theme="green"] .profile-username,body[data-theme="green"] .notification-preview,body[data-theme="green"] .time{color:#a8d7b9!important}
+body[data-theme="green"] .quick-icon,body[data-theme="green"] .avatar,body[data-theme="green"] .notification-avatar,body[data-theme="green"] .setting-icon,body[data-theme="green"] .primary,body[data-theme="green"] .send-btn,body[data-theme="green"] .nav-btn.active,body[data-theme="green"] .notification-badge,body[data-theme="green"] .status-pill{background:linear-gradient(135deg,#b5f6cd,#258b5d)!important;color:#062416!important;border-color:#7ad5a2!important}
+body[data-theme="green"] button,body[data-theme="green"] .nav-btn,body[data-theme="green"] .back-btn,body[data-theme="green"] .close,body[data-theme="green"] .composer .icon-btn{color:#8de5ae!important}body[data-theme="green"] .bubble.mine,body[data-theme="green"] .mine .bubble{background:linear-gradient(135deg,#b5f6cd,#258b5d)!important;color:#062416!important}body[data-theme="green"] .bubble.theirs,body[data-theme="green"] .theirs .bubble{background:linear-gradient(135deg,#294737,#172c20)!important;color:#e5ffed!important;border:1px solid rgba(93,211,145,.25)!important}
+body[data-theme="gold"]{--theme-accent:#edca68!important}
+body[data-theme="gold"] .theme-picker-section{background:linear-gradient(145deg,rgba(48,48,48,.86),rgba(12,12,12,.92))!important;border-color:rgba(220,178,63,.3)!important}
+body[data-theme="mono"] .theme-picker-section,body[data-theme="blue"] .theme-picker-section,body[data-theme="pink"] .theme-picker-section,body[data-theme="green"] .theme-picker-section{background:linear-gradient(145deg,rgba(40,40,40,.9),rgba(10,10,10,.95))!important}
+body[data-theme="mono"] .theme-option,body[data-theme="blue"] .theme-option,body[data-theme="pink"] .theme-option,body[data-theme="green"] .theme-option{color:#f6f6f6!important}
+@media(max-width:360px){.theme-options{grid-template-columns:1fr}.theme-option{padding:9px 10px}}
+
+
+/* Sender display names: use the existing chat palette; no layout or theme redesign. */
+.message-sender-name{display:block;font-size:11px;font-weight:800;line-height:1.3;margin-bottom:5px;letter-spacing:.1px;color:var(--theme-accent,#7ad5a2);overflow-wrap:anywhere;}
+body[data-theme="green"] .message-sender-name{color:#7ad5a2!important}
+body[data-theme="gold"] .message-sender-name{color:#edca68!important}
+body[data-theme="mono"] .message-sender-name{color:#333!important}
+body[data-theme="blue"] .message-sender-name{color:#71d0ff!important}
+body[data-theme="pink"] .message-sender-name{color:#ff8bc7!important}
+
+
+/* Unread-message indicator: matches the existing green theme */
+.friend{position:relative}
+.friend-unread-dot{width:10px;height:10px;min-width:10px;border-radius:50%;background:#79e6a4;box-shadow:0 0 0 3px rgba(121,230,164,.13),0 0 12px rgba(121,230,164,.42);display:inline-block;margin-left:8px;vertical-align:middle}
+.notification-item.unread{border-color:rgba(121,230,164,.38)}
+
+/* Login refresh + profile/friend discovery */
+.guest-login{background:radial-gradient(circle at 15% 8%,rgba(70,220,130,.20),transparent 42%),linear-gradient(145deg,#080d0b,#101a14)!important}
+.guest-card{background:rgba(18,28,23,.88)!important;border-color:rgba(120,255,170,.16)!important;box-shadow:0 25px 80px #0008,inset 0 1px 0 #ffffff0a!important}
+.guest-mark{background:linear-gradient(145deg,#173c29,#0c2116)!important;color:#8affb5!important;border:1px solid #5aff9b33!important}
+.guest-card h1{color:#f3fff7}.guest-card p,.guest-note{color:#81958a!important}
+.guest-field{color:#a9bdb0!important}.guest-field input{background:#101914!important;border-color:#26372c!important;color:#fff!important}
+.guest-field input::placeholder{color:#53665a}.guest-continue{background:linear-gradient(135deg,#72f5a5,#31c975)!important;color:#062313!important}
+.profile-action-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0}
+.profile-action{border:1px solid var(--line);border-radius:16px;padding:13px 10px;background:rgba(255,255,255,.05);color:inherit;font-weight:750;cursor:pointer}
+.profile-action strong{display:block;font-size:19px;margin-bottom:3px}
+.profile-action span{font-size:11px;opacity:.75}
+.profile-view-overlay{z-index:120}
+.profile-view-card{padding:18px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+.profile-view-actions{display:flex;gap:8px;margin-top:16px}
+.profile-view-actions button{flex:1;min-height:45px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.06);color:inherit;font-weight:700}
+.profile-view-actions .danger{border-color:#b94a4a66;color:#ffaaaa}
+.people-result{display:flex;align-items:center;gap:11px;padding:12px;border:1px solid var(--line);border-radius:16px;margin:8px 0;cursor:pointer}
+.people-result .person-meta{min-width:0;flex:1}.people-result small{display:block;opacity:.7;margin-top:3px}
+.friend.long-pressing{outline:2px solid var(--theme-accent,#7ad5a2)}
+
+
+/* Glossy, dismissible chat-delete action */
+.friend{overflow:visible!important}
+.delete-chat-action{display:none;position:absolute;right:10px;bottom:8px;z-index:8;padding:10px 15px;border-radius:15px;border:1px solid rgba(255,255,255,.22);background:linear-gradient(135deg,rgba(255,255,255,.20),rgba(15,25,19,.94));color:#eafff0!important;font-size:12px;font-weight:800;letter-spacing:.1px;box-shadow:0 8px 22px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.24),0 0 18px rgba(105,255,157,.08);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);cursor:pointer;animation:deleteActionIn .16s ease}
+.friend.chat-delete-ready .delete-chat-action{display:inline-flex;align-items:center;gap:7px}
+.friend.chat-delete-ready .delete-chat-action:before{content:'⌫';font-size:15px}
+.friend.chat-delete-ready{padding-bottom:53px!important;outline:1px solid rgba(122,245,165,.48);box-shadow:0 0 0 1px rgba(122,245,165,.08),0 12px 28px rgba(0,0,0,.3)!important}
+.delete-chat-action:active{transform:scale(.96);background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(25,50,34,.98))}
+@keyframes deleteActionIn{from{opacity:0;transform:translateY(5px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+
+/* Profile polish: fixed circular display pictures and glossy, well-spaced actions. */
+.profile-card .profile-main,.profile-view-card .profile-main{display:flex!important;align-items:center!important;gap:16px!important;min-width:0!important;}
+.profile-card .profile-avatar,.profile-view-card .profile-avatar{width:72px!important;height:72px!important;min-width:72px!important;min-height:72px!important;flex:0 0 72px!important;border-radius:50%!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;line-height:1!important;font-size:25px!important;object-fit:cover!important;}
+.profile-card .profile-avatar img,.profile-view-card .profile-avatar img{width:100%!important;height:100%!important;object-fit:cover!important;border-radius:50%!important;display:block!important;}
+.profile-card .profile-info,.profile-view-card .profile-info{flex:1 1 auto!important;min-width:0!important;}
+.profile-card .profile-name,.profile-view-card .profile-name{overflow-wrap:anywhere!important;line-height:1.2!important;}
+.profile-action-row{gap:12px!important;margin:16px 0!important;}
+.profile-action,.profile-view-actions button{min-height:54px!important;border:1px solid rgba(122,213,162,.36)!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(83,151,111,.30),rgba(8,25,16,.78))!important;color:#dcffe8!important;box-shadow:0 8px 22px rgba(0,0,0,.2),inset 0 1px 0 rgba(221,255,231,.16),inset 0 -1px 0 rgba(0,0,0,.18)!important;backdrop-filter:blur(14px) saturate(135%)!important;-webkit-backdrop-filter:blur(14px) saturate(135%)!important;transition:transform .16s ease,filter .16s ease!important;}
+.profile-action:active,.profile-view-actions button:active{transform:scale(.97)!important;filter:brightness(1.12)!important;}
+.profile-view-actions{gap:10px!important;}
+.profile-view-actions .danger{border-color:rgba(255,126,126,.42)!important;background:linear-gradient(145deg,rgba(130,48,48,.38),rgba(35,10,10,.78))!important;color:#ffc1c1!important;}
+.profile-status-line{margin:12px 0 16px!important;font-size:13px!important;opacity:.78!important;}
+.viewed-friends-wrap h3{margin:12px 0!important;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.people-result{align-items:center!important;gap:12px!important;padding:12px!important;min-height:78px!important;}
+.people-result .avatar{width:54px!important;height:54px!important;min-width:54px!important;flex:0 0 54px!important;overflow:hidden!important;}
+.delete-account-setting{width:100%;text-align:left;cursor:pointer;border:1px solid rgba(255,112,112,.32)!important;background:linear-gradient(145deg,rgba(105,35,35,.35),rgba(20,8,8,.88))!important;color:#ffe4e4!important;box-shadow:0 10px 26px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,210,210,.10)!important;}
+.delete-account-setting .setting-title{color:#ffd0d0!important}.delete-account-setting .setting-desc{color:#d5a6a6!important;}
+.delete-account-icon{background:linear-gradient(145deg,#ffb1b1,#9f3434)!important;color:#2b0808!important;}
+.delete-account-chevron{font-size:27px;font-weight:300;color:#ffb0b0;padding:0 6px;}
+@media(max-width:390px){.profile-card .profile-avatar,.profile-view-card .profile-avatar{width:64px!important;height:64px!important;min-width:64px!important;min-height:64px!important;flex-basis:64px!important}.profile-action,.profile-view-actions button{min-height:50px!important;padding:10px 8px!important}}
+
+</style>
+<style id="friends-layout-theme-fixes">
+
+
+/* === Friends theme and layout fixes (v2) === */
+/* Chat headers now span the full app viewport width, including Public chat. */
+.app .chat-page{padding-top:0!important;}
+.app .chat-top{
+  width:calc(100% + 32px)!important;
+  box-sizing:border-box!important;
+  margin:0 -16px 14px!important;
+  padding:12px 16px 14px!important;
+  min-height:70px!important;
+  border-radius:0 0 20px 20px!important;
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:nowrap!important;
+}
+.app .chat-top .chat-user{flex:1 1 auto!important;min-width:0!important;}
+.app .chat-top .chat-details{flex:1 1 auto!important;min-width:0!important;}
+.app .chat-top .chat-name,.app .chat-top .chat-state{max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+
+/* Profile identity row: keep avatar, display name and @username aligned. */
+.profile-card .profile-main{display:flex!important;align-items:center!important;gap:14px!important;min-width:0!important;}
+.profile-card .profile-avatar{flex:0 0 62px!important;width:62px!important;height:62px!important;overflow:hidden!important;object-fit:cover!important;}
+.profile-card .profile-info{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important;}
+.profile-card .profile-name{display:block!important;max-width:100%!important;overflow-wrap:anywhere!important;line-height:1.25!important;}
+.profile-card .profile-username{display:block!important;max-width:100%!important;overflow-wrap:anywhere!important;line-height:1.4!important;}
+
+/* Make the blue option sky-blue + deep-blue rather than royal blue. */
+.swatch-blue{--swatch-bg:linear-gradient(135deg,#173d70,#071326);--swatch-accent:#1556a8;--swatch-mid:#69c8ff;--swatch-light:#d9f4ff}
+body[data-theme="blue"]{--theme-accent:#71d0ff!important;background:radial-gradient(circle at 0% 0%,#15518a 0,transparent 38%),radial-gradient(circle at 100% 12%,#102f70 0,transparent 36%),linear-gradient(145deg,#102747,#030914 74%)!important;color:#e6f7ff!important}
+body[data-theme="blue"] .glass,body[data-theme="blue"] .header,body[data-theme="blue"] .quick,body[data-theme="blue"] .friend,body[data-theme="blue"] .chat-top,body[data-theme="blue"] .composer,body[data-theme="blue"] .bottom-nav,body[data-theme="blue"] .sheet,body[data-theme="blue"] .profile-card,body[data-theme="blue"] .notification-item,body[data-theme="blue"] .search,body[data-theme="blue"] .input,body[data-theme="blue"] .composer input,body[data-theme="blue"] .theme-picker-section{background:linear-gradient(145deg,rgba(20,55,91,.96),rgba(4,13,29,.98))!important;border-color:rgba(105,200,255,.34)!important;color:#e6f7ff!important}
+body[data-theme="blue"] .quick-icon,body[data-theme="blue"] .avatar,body[data-theme="blue"] .notification-avatar,body[data-theme="blue"] .setting-icon,body[data-theme="blue"] .primary,body[data-theme="blue"] .send-btn,body[data-theme="blue"] .nav-btn.active,body[data-theme="blue"] .notification-badge,body[data-theme="blue"] .status-pill{background:linear-gradient(135deg,#b5eaff,#43a9f0,#174eaa)!important;color:#04162b!important;border-color:#70d0ff!important}
+body[data-theme="blue"] button,body[data-theme="blue"] .nav-btn,body[data-theme="blue"] .back-btn,body[data-theme="blue"] .close,body[data-theme="blue"] .composer .icon-btn{color:#8bdcff!important}
+body[data-theme="blue"] .bubble.mine,body[data-theme="blue"] .mine .bubble{background:linear-gradient(135deg,#9de4ff,#398fe2,#174da4)!important;color:#04162b!important}
+body[data-theme="blue"] .bubble.theirs,body[data-theme="blue"] .theirs .bubble{background:linear-gradient(135deg,#173b62,#0b1e38)!important;color:#e6f7ff!important;border:1px solid rgba(105,200,255,.28)!important}
+
+/* Keep each theme internally consistent, including secondary text, lines and controls. */
+body[data-theme="mono"]{--theme-accent:#222!important;color:#171717!important}
+body[data-theme="mono"] .chat-top,body[data-theme="mono"] .profile-card,body[data-theme="mono"] .sheet,body[data-theme="mono"] .notification-item,body[data-theme="mono"] .theme-picker-section{border-color:rgba(20,20,20,.14)!important}
+body[data-theme="mono"] .profile-username,body[data-theme="mono"] .profile-note,body[data-theme="mono"] .chat-state,body[data-theme="mono"] .setting-desc,body[data-theme="mono"] .muted{color:#626262!important}
+body[data-theme="mono"] .input,body[data-theme="mono"] input,body[data-theme="mono"] textarea,body[data-theme="mono"] select{color:#171717!important;border-color:rgba(20,20,20,.2)!important}
+body[data-theme="mono"] .input::placeholder,body[data-theme="mono"] input::placeholder,body[data-theme="mono"] textarea::placeholder{color:#777!important;opacity:1!important}
+body[data-theme="gold"] .profile-username,body[data-theme="gold"] .profile-note{color:#c1b796!important}
+body[data-theme="gold"] .profile-card,body[data-theme="gold"] .chat-top{border-color:rgba(220,178,63,.3)!important}
+body[data-theme="pink"] .profile-username,body[data-theme="pink"] .profile-note{color:#d7a7c2!important}
+body[data-theme="green"] .profile-username,body[data-theme="green"] .profile-note{color:#a8d7b9!important}
+@media(max-width:360px){.app .chat-top{width:calc(100% + 24px)!important;margin-left:-12px!important;margin-right:-12px!important;padding-left:12px!important;padding-right:12px!important}.profile-card{padding:14px!important}.profile-card .profile-avatar{flex-basis:54px!important;width:54px!important;height:54px!important}}
+
+</style>
+
+<style id="friends-green-only-profile-settings-fix">
+/* Rich Green is the sole palette: make every settings label and profile detail use it consistently. */
+body[data-theme="green"]{--theme-accent:#7ad5a2!important;--muted:#a8d7b9!important}
+body[data-theme="green"] .theme-picker-section,
+body[data-theme="green"] .setting,
+body[data-theme="green"] .profile-card,
+body[data-theme="green"] .profile-setting-btn,
+body[data-theme="green"] .sheet,
+body[data-theme="green"] .input,
+body[data-theme="green"] input,
+body[data-theme="green"] select,
+body[data-theme="green"] textarea{border-color:rgba(93,211,145,.34)!important}
+body[data-theme="green"] .setting-title,
+body[data-theme="green"] #themePickerTitle,
+body[data-theme="green"] .theme-picker-heading .setting-title{color:#e1ffeb!important}
+body[data-theme="green"] .setting-desc,
+body[data-theme="green"] .theme-picker-heading .setting-desc,
+body[data-theme="green"] .profile-username,
+body[data-theme="green"] .profile-note{color:#a8d7b9!important}
+body[data-theme="green"] .theme-option[data-theme-choice="green"]{border-color:#7ad5a2!important;background:linear-gradient(145deg,rgba(39,105,70,.42),rgba(5,15,10,.72))!important;color:#e1ffeb!important}
+.profile-card .profile-main{display:flex!important;align-items:center!important;gap:14px!important;min-width:0!important}
+.profile-card .profile-avatar{flex:0 0 62px!important;width:62px!important;height:62px!important;min-width:62px!important;min-height:62px!important;border-radius:50%!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;object-fit:cover!important;background:linear-gradient(135deg,#b5f6cd,#258b5d)!important;color:#062416!important;border:1px solid rgba(122,213,162,.6)!important}
+.profile-card .profile-avatar img, .profile-card img.profile-avatar{width:100%!important;height:100%!important;display:block!important;object-fit:cover!important;border-radius:50%!important}
+.profile-card .profile-info{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important}
+.profile-card .profile-name,.profile-card .profile-username{display:block!important;max-width:100%!important;overflow-wrap:anywhere!important;word-break:break-word!important;white-space:normal!important;line-height:1.4!important}
+.profile-card .profile-name{color:#e1ffeb!important}
+.profile-card .profile-username{color:#a8d7b9!important}
+@media(max-width:360px){.profile-card .profile-avatar{flex-basis:54px!important;width:54px!important;height:54px!important;min-width:54px!important;height:54px!important}.profile-card .profile-main{gap:11px!important}}
+</style>
+
+<style>
+
+
+/* =====================================================
+   RESPONSIVE DESKTOP WORKSPACE
+   Mobile layout remains unchanged below 900px.
+===================================================== */
+@media (min-width: 900px){
+  html, body { width:100%; height:100%; min-height:100%; overflow:hidden; }
+  body { background:radial-gradient(circle at 85% 0%,rgba(37,139,93,.13),transparent 34%),linear-gradient(145deg,#07120c,#030605 72%); }
+  .app{
+    position:relative;
+    display:grid;
+    grid-template-columns:72px minmax(280px,340px) minmax(0,1fr);
+    grid-template-rows:72px minmax(0,1fr);
+    column-gap:14px; row-gap:12px;
+    width:100%; max-width:none; height:100dvh; min-height:0;
+    margin:0; padding:12px 16px 12px 12px; overflow:hidden;
+  }
+  #homeHeader{
+    grid-column:2 / 4; grid-row:1;
+    position:relative; top:auto; min-height:60px; height:60px;
+    align-self:center; width:100%; border-radius:20px; display:flex !important;
+  }
+  #homePage{
+    grid-column:2; grid-row:2;
+    display:block !important; min-width:0; min-height:0; height:100%;
+    overflow-y:auto; overflow-x:hidden; padding:8px 14px 18px 0;
+    border-right:1px solid rgba(117,210,153,.28);
+    scrollbar-width:thin; scrollbar-color:rgba(93,211,145,.35) transparent;
+    animation:none;
+  }
+  #homePage .hero, #homePage .quick-grid { display:none !important; }
+  #homePage .search { margin:0 12px 22px 0; width:calc(100% - 12px); }
+  #homePage .search + .section-title { display:none !important; }
+  #homePage .section-title { margin:18px 12px 12px 0; }
+  #homePage .friend-list { padding-right:8px; }
+  #groupsSection { margin-top:18px; }
+  .bottom-nav{
+    grid-column:1; grid-row:1 / 3;
+    position:relative; left:auto; bottom:auto; transform:none;
+    width:72px; height:auto; min-height:0; align-self:stretch;
+    display:flex; flex-direction:column; justify-content:flex-start;
+    gap:12px; padding:10px 7px; border-radius:24px;
+    margin:0; z-index:45;
+  }
+  .nav-btn{ width:56px; min-height:54px; flex:none; border-radius:17px; }
+  .bottom-nav.hidden{ opacity:1; pointer-events:auto; transform:none; }
+  .chat-page{
+    grid-column:3; grid-row:2;
+    min-width:0; min-height:0; height:100%; max-height:100%;
+    padding:0 0 2px !important; overflow:hidden; animation:none;
+  }
+  .chat-page.active{ display:flex !important; flex-direction:column; }
+  .chat-top{
+    flex:0 0 auto; width:100%; min-height:72px;
+    padding:10px 16px 14px !important; margin:0 0 8px;
+    border-bottom:1px solid rgba(117,210,153,.22);
+    border-radius:18px 18px 0 0;
+  }
+  .chat-top .back-btn{ display:none; }
+  .messages{
+    flex:1 1 auto; min-height:0; height:auto !important; max-height:none;
+    padding:14px 10px 92px !important; overflow-y:auto;
+  }
+  .composer-wrap{
+    position:fixed; left:calc(12px + 72px + 14px + 340px + 14px); right:16px;
+    bottom:18px; width:auto; transform:none; z-index:60;
+  }
+  .composer{ width:100%; }
+  #publicPage .chat-top{ width:100%; }
+  .profile-card, .sheet, .notifications-panel, .overlay .modal{ max-width:min(680px,calc(100vw - 40px)); }
+}
+
+@media (min-width:900px) and (max-width:1100px){
+  .app{ grid-template-columns:64px minmax(260px,300px) minmax(0,1fr); column-gap:10px; padding-left:10px; padding-right:10px; }
+  .bottom-nav{ width:64px; }
+  .nav-btn{ width:50px; }
+  .composer-wrap{ left:calc(10px + 64px + 10px + 300px + 10px); right:10px; }
+}
+
+
+
+/* FriendsChat rich-green notification polish */
+body[data-theme="green"] .notification-item{
+  position:relative; overflow:hidden;
+  background:linear-gradient(135deg,rgba(28,68,47,.97),rgba(7,22,14,.98))!important;
+  border:1px solid rgba(111,235,159,.26)!important;
+  border-radius:18px!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.22),inset 0 1px 0 rgba(200,255,218,.07)!important;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+body[data-theme="green"] .notification-item:before{
+  content:""; position:absolute; left:0; top:12px; bottom:12px; width:3px;
+  border-radius:0 5px 5px 0; background:linear-gradient(180deg,#b5f6cd,#258b5d); opacity:.75;
+}
+body[data-theme="green"] .notification-item.unread{
+  border-color:rgba(125,244,168,.58)!important;
+  box-shadow:0 8px 26px rgba(0,0,0,.25),0 0 0 1px rgba(83,207,127,.08),inset 0 1px 0 rgba(200,255,218,.08)!important;
+}
+body[data-theme="green"] .notification-avatar{
+  background:linear-gradient(145deg,#b5f6cd,#258b5d)!important;color:#062416!important;
+  border:1px solid rgba(171,255,198,.5);box-shadow:0 5px 16px rgba(31,153,82,.22)!important;
+}
+body[data-theme="green"] .notification-unread-dot{
+  background:#8df5b1!important;box-shadow:0 0 0 4px rgba(93,211,145,.13),0 0 12px rgba(93,211,145,.45);
+}
+body[data-theme="green"] .toast{
+  background:linear-gradient(135deg,rgba(31,74,50,.98),rgba(4,19,11,.98))!important;
+  color:#e5ffed!important;border:1px solid rgba(116,232,158,.42)!important;
+  border-radius:17px!important;box-shadow:0 12px 34px rgba(0,0,0,.42),inset 0 1px 0 rgba(195,255,214,.1)!important;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+body[data-theme="green"] .toast.show{animation:friendsGreenToastIn .24s ease both}
+@keyframes friendsGreenToastIn{from{filter:brightness(.8)}to{filter:brightness(1)}}
+@media(prefers-reduced-motion:reduce){body[data-theme="green"] .notification-item,body[data-theme="green"] .toast.show{transition:none;animation:none}}
+</style>
+</head>
+
+
+<body>
+
+
+<div id="guestLogin" class="guest-login">
+  <form id="guestLoginForm" class="guest-card" autocomplete="on">
+    <div class="guest-mark">f.</div>
+    <h1>Welcome to Friends.</h1>
+    <p>Choose a guest name and username to get started. No password needed.</p>
+    <label class="guest-field">Your name
+      <input id="guestNameInput" maxlength="32" placeholder="e.g. Nohan" autocomplete="nickname" required>
+    </label>
+    <label class="guest-field">Guest username
+      <input id="guestUsernameInput" maxlength="24" placeholder="e.g. nohan27" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+    </label>
+    <button class="guest-continue" type="submit">Continue to Friends <span aria-hidden="true">→</span></button>
+    <p class="guest-note">Guest mode · You can change these later in Settings</p>
+  </form>
+</div>
+
+
+
+<!-- =====================================================
+     SVG DEFINITIONS
+===================================================== -->
+
+<svg style="display:none">
+
+<symbol id="home" viewBox="0 0 24 24">
+    <path d="M3 10.8 12 3l9 7.8"/>
+    <path d="M5 9.8V21h14V9.8"/>
+    <path d="M9 21v-6h6v6"/>
+</symbol>
+
+<symbol id="chat" viewBox="0 0 24 24">
+    <path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.7 8.7 0 0 1-3-.5L4 20l1.5-4A7.2 7.2 0 0 1 4.5 12 7.5 7.5 0 0 1 12 4.5 7.5 7.5 0 0 1 20 11.5Z"/>
+</symbol>
+
+<symbol id="users" viewBox="0 0 24 24">
+    <circle cx="9" cy="8" r="3"/>
+    <path d="M3.5 20a5.5 5.5 0 0 1 11 0"/>
+    <path d="M16 5.5a3 3 0 0 1 0 5.8"/>
+    <path d="M16 14.5a5 5 0 0 1 4.5 5"/>
+</symbol>
+
+<symbol id="user-plus" viewBox="0 0 24 24">
+    <circle cx="9" cy="8" r="3"/>
+    <path d="M3.5 20a5.5 5.5 0 0 1 11 0"/>
+    <path d="M19 8v6"/>
+    <path d="M16 11h6"/>
+</symbol>
+
+<symbol id="profile" viewBox="0 0 24 24">
+    <circle cx="12" cy="8" r="3.2"/>
+    <path d="M5 20a7 7 0 0 1 14 0"/>
+</symbol>
+
+<symbol id="notification" viewBox="0 0 24 24">
+    <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/>
+    <path d="M10 21h4"/>
+</symbol>
+
+<symbol id="settings" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V20h-2.5v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6v-2.5h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1L9 6.7l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 .3 1.9 1.7 1.7 0 0 0 1.5 1h.1v2.5h-.1a1.7 1.7 0 0 0-1.5 1Z"/>
+</symbol>
+
+<symbol id="search" viewBox="0 0 24 24">
+    <circle cx="10.8" cy="10.8" r="6.8"/>
+    <path d="m16 16 5 5"/>
+</symbol>
+
+<symbol id="plus" viewBox="0 0 24 24">
+    <path d="M12 5v14"/>
+    <path d="M5 12h14"/>
+</symbol>
+
+<symbol id="send" viewBox="0 0 24 24">
+    <path d="m21 3-7.2 18-3.3-7.5L3 10.2 21 3Z"/>
+    <path d="M10.5 13.5 21 3"/>
+</symbol>
+
+<symbol id="back" viewBox="0 0 24 24">
+    <path d="M19 12H5"/>
+    <path d="m11 6-6 6 6 6"/>
+</symbol>
+
+<symbol id="close" viewBox="0 0 24 24">
+    <path d="m6 6 12 12"/>
+    <path d="M18 6 6 18"/>
+</symbol>
+
+<symbol id="globe" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M3 12h18"/>
+    <path d="M12 3a14 14 0 0 1 0 18"/>
+    <path d="M12 3a14 14 0 0 0 0 18"/>
+</symbol>
+
+<symbol id="link" viewBox="0 0 24 24">
+    <path d="M10 13.5 14 9.5"/>
+    <path d="M8 17H6a4 4 0 0 1 0-8h4"/>
+    <path d="M16 7h2a4 4 0 0 1 0 8h-4"/>
+</symbol>
+
+<symbol id="shield" viewBox="0 0 24 24">
+    <path d="M12 3 20 6v5c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-3Z"/>
+    <path d="m9 12 2 2 4-4"/>
+</symbol>
+
+</svg>
+
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div class="app">
+
+
+<header id="homeHeader" class="header">
+
+    <div class="brand">
+
+        <div class="brand-dot"></div>
+
+        <div class="brand-name">
+            Friends
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HOME PAGE
+===================================================== -->
+
+<main id="homePage" class="page active">
+
+<section class="hero">
+
+    <div class="eyebrow">
+        Your private circle
+    </div>
+
+    <h1>
+        Hello<span id="helloName"></span>.
+    </h1>
+
+    <p>
+        Talk privately with your friends,
+        wherever they are.
+    </p>
+
+</section>
+
+
+<div class="search glass">
+
+    <svg class="icon icon-small">
+        <use href="#search"></use>
+    </svg>
+
+    <input
+        id="friendSearch"
+        type="search"
+        placeholder="Search friends and groups"
+        autocomplete="off">
+
+</div>
+
+
+<div class="section-title">
+
+    <h2>
+        Quick chat
+    </h2>
+
+    <span>
+        Friends
+    </span>
+
+</div>
+
+
+<div class="quick-grid">
+
+
+<div
+    class="quick glass"
+    id="addFriendQuick">
+
+    <div class="quick-icon">
+
+        <svg class="icon">
+            <use href="#user-plus"></use>
+        </svg>
+
+    </div>
+
+    <div>
+
+        <div class="quick-title">
+            Add friend
+        </div>
+
+        <div class="quick-sub">
+            Connect directly
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    class="quick glass"
+    id="groupQuick">
+
+    <div class="quick-icon">
+
+        <svg class="icon">
+            <use href="#users"></use>
+        </svg>
+
+    </div>
+
+    <div>
+
+        <div class="quick-title">
+            Group
+        </div>
+
+        <div class="quick-sub">
+            Create a group
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    class="quick glass"
+    id="publicQuick">
+
+    <div class="quick-icon">
+
+        <svg class="icon">
+            <use href="#globe"></use>
+        </svg>
+
+    </div>
+
+    <div>
+
+        <div class="quick-title">
+            Public
+        </div>
+
+        <div class="quick-sub">
+            Open room
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+    <h2>
+        Your friends
+    </h2>
+
+    <span id="friendCount">
+        0 friends
+    </span>
+
+</div>
+
+
+<div
+    id="friendList"
+    class="friend-list">
+</div>
+
+
+<div
+    id="groupsSection"
+    style="display:none;">
+
+    <div class="section-title">
+
+        <h2>
+            Your groups
+        </h2>
+
+        <span id="groupCount">
+            0 groups
+        </span>
+
+    </div>
+
+
+    <div
+        id="groupList"
+        class="friend-list">
+    </div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     PRIVATE CHAT
+===================================================== -->
+
+<main
+    id="chatPage"
+    class="page chat-page">
+
+<div class="chat-top">
+
+    <button
+        class="back-btn"
+        id="privateBack">
+
+        <svg class="icon">
+            <use href="#back"></use>
+        </svg>
+
+    </button>
+
+
+    <div class="chat-user">
+
+        <div
+            class="avatar"
+            id="chatAvatar">
+
+            <span id="chatInitial">
+                ?
+            </span>
+
+            <span class="online"></span>
+
+        </div>
+
+
+        <div class="chat-details">
+
+            <div
+                id="chatName"
+                class="chat-name">
+
+                Friend
+
+            </div>
+
+            <div
+                id="chatState"
+                class="chat-state">
+
+                Not connected
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="messages"
+    class="messages">
+</div>
+
+</main>
+
+
+<!-- =====================================================
+     GROUP CHAT
+===================================================== -->
+
+<main
+    id="groupPage"
+    class="page chat-page">
+
+<div class="chat-top">
+
+    <button
+        class="back-btn"
+        id="groupBack">
+
+        <svg class="icon">
+            <use href="#back"></use>
+        </svg>
+
+    </button>
+
+
+    <div class="chat-user">
+
+        <div
+            id="groupAvatar"
+            class="avatar group-avatar">
+
+            G
+
+        </div>
+
+
+        <div class="chat-details">
+
+            <div
+                id="groupName"
+                class="chat-name">
+
+                Group
+
+            </div>
+
+            <div class="chat-state">
+                Group chat
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="groupMessages"
+    class="messages">
+</div>
+
+</main>
+
+
+<!-- =====================================================
+     PUBLIC CHAT
+===================================================== -->
+
+<main
+    id="publicPage"
+    class="page chat-page">
+
+<div class="chat-top">
+
+    <button
+        class="back-btn"
+        id="publicBack">
+
+        <svg class="icon">
+            <use href="#back"></use>
+        </svg>
+
+    </button>
+
+
+    <div class="chat-user">
+
+        <div class="avatar">
+
+            <svg class="icon">
+                <use href="#globe"></use>
+            </svg>
+
+        </div>
+
+
+        <div class="chat-details">
+
+            <div class="chat-name">
+                Public
+            </div>
+
+            <div class="chat-state">
+                Open room
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="publicMessages"
+    class="messages">
+</div>
+
+</main>
+
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
+<nav
+    id="bottomNav"
+    class="bottom-nav">
+
+<button
+    id="navHome"
+    class="nav-btn active"
+    aria-label="Home">
+
+    <svg class="icon">
+        <use href="#home"></use>
+    </svg>
+
+</button>
+
+
+<button
+    id="navSearch"
+    class="nav-btn"
+    aria-label="Search">
+
+    <svg class="icon">
+        <use href="#search"></use>
+    </svg>
+
+</button>
+
+
+<button
+    id="navProfile"
+    class="nav-btn"
+    aria-label="Profile">
+
+    <svg class="icon">
+        <use href="#profile"></use>
+    </svg>
+
+</button>
+
+
+<button
+    id="navNotifications"
+    class="nav-btn"
+    aria-label="Notifications">
+
+    <svg class="icon">
+        <use href="#notification"></use>
+    </svg>
+
+    <span
+        id="notificationBadge"
+        class="notification-badge">
+    </span>
+
+</button>
+
+</nav>
+
+</div><!-- /.app -->
+
+
+<!-- =====================================================
+     CHAT COMPOSER
+===================================================== -->
+
+<div
+    id="composerWrap"
+    class="composer-wrap"
+    style="display:none;">
+
+<div class="composer">
+
+<button
+    id="attachButton"
+    class="icon-btn">
+
+    <svg class="icon">
+        <use href="#plus"></use>
+    </svg>
+
+</button>
+
+
+<input
+    id="messageInput"
+    type="text"
+    placeholder="Message…"
+    autocomplete="off">
+
+
+<button
+    id="sendButton"
+    class="send-btn">
+
+    <svg class="icon">
+        <use href="#send"></use>
+    </svg>
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ADD FRIEND
+===================================================== -->
+
+<div
+    id="addFriendOverlay"
+    class="overlay">
+
+<div class="sheet">
+
+<div class="handle"></div>
+
+<div class="sheet-head">
+
+    <h2>
+        Add friend
+    </h2>
+
+    <button
+        class="close"
+        data-close="addFriendOverlay">
+
+        <svg class="icon icon-small">
+            <use href="#close"></use>
+        </svg>
+
+    </button>
+
+</div>
+
+
+<p style="color:#777b84;font-size:13px;line-height:1.5;margin-bottom:16px">Search a registered Friends username to send a request. They must accept before you become friends.</p>
+
+<div class="form-group">
+<label>Search username</label>
+<input id="friendUsernameInput" class="input" placeholder="@nohan27" autocomplete="off" autocapitalize="none" spellcheck="false">
+</div>
+<button id="saveFriendButton" class="primary" type="button">Search people</button>
+<div id="userSearchResults" style="margin-top:14px"></div>
+<div style="height:1px;background:rgba(0,0,0,.08);margin:20px 0"></div>
+<h3 style="font-size:15px;margin-bottom:10px">Friend requests</h3>
+<div id="friendRequestsList"><p style="color:#858891;font-size:13px">Loading requests…</p></div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
+<div
+    id="profileOverlay"
+    class="overlay">
+
+<div class="sheet">
+
+<div class="handle"></div>
+
+<div class="sheet-head">
+
+    <h2>
+        Profile
+    </h2>
+
+    <button
+        class="close"
+        data-close="profileOverlay">
+
+        <svg class="icon icon-small">
+            <use href="#close"></use>
+        </svg>
+
+    </button>
+
+</div>
+
+
+<div class="profile-card glass">
+
+    <div class="profile-main">
+
+        <div
+            id="profileAvatar"
+            class="profile-avatar">
+
+            F
+
+        </div>
+
+
+        <div class="profile-info">
+
+            <div
+                id="profileName"
+                class="profile-name">
+
+                Friend
+
+            </div>
+
+
+            <div
+                id="profileUsername"
+                class="profile-username">
+
+                @username
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-note">
+
+        Your name and username can only be
+        changed from Settings.
+
+    </div>
+
+</div>
+
+
+<div class="profile-action-row">
+  <button class="profile-action" id="profileAddFriendButton"><strong>＋</strong><span>Add friend</span></button>
+  <button class="profile-action" id="profileFriendsButton"><strong id="profileFriendsCount">0</strong><span>Friends</span></button>
+</div>
+
+<button
+    id="profileSettingsButton"
+    class="profile-setting-btn">
+
+    <svg class="icon icon-small">
+        <use href="#settings"></use>
+    </svg>
+
+    Settings
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     NOTIFICATIONS
+===================================================== -->
+
+<div
+    id="notificationsOverlay"
+    class="overlay">
+
+<div class="sheet">
+
+<div class="handle"></div>
+
+<div class="sheet-head">
+
+    <h2>
+        Notifications
+    </h2>
+
+    <button
+        class="close"
+        data-close="notificationsOverlay">
+
+        <svg class="icon icon-small">
+            <use href="#close"></use>
+        </svg>
+
+    </button>
+
+</div>
+
+
+<div id="notificationList" class="notification-list"></div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<div
+    id="settingsOverlay"
+    class="overlay">
+
+<div class="sheet">
+
+<div class="handle"></div>
+
+<div class="sheet-head">
+
+    <h2>
+        Settings
+    </h2>
+
+    <button
+        class="close"
+        data-close="settingsOverlay">
+
+        <svg class="icon icon-small">
+            <use href="#close"></use>
+        </svg>
+
+    </button>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+    Your name
+</label>
+
+<input
+    id="nameInput"
+    class="input"
+    placeholder="Your name"
+    autocomplete="off">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+    Username
+</label>
+
+<input
+    id="usernameInput"
+    class="input"
+    placeholder="@username"
+    autocomplete="off">
+
+</div>
+
+
+
+
+
+<button type="button" class="setting glass delete-account-setting" id="deleteAccountButton" aria-label="Permanently delete account">
+  <span class="setting-icon delete-account-icon"><svg class="icon"><use href="#close"></use></svg></span>
+  <span class="setting-info"><span class="setting-title">Delete account</span><span class="setting-desc">Permanently remove your account and Friends data from the server</span></span>
+  <span class="delete-account-chevron">›</span>
+</button>
+
+<div class="setting glass">
+
+<div class="setting-icon">
+
+    <svg class="icon">
+        <use href="#shield"></use>
+    </svg>
+
+</div>
+
+
+<div class="setting-info">
+
+<div class="setting-title">
+    Local messages
+</div>
+
+<div class="setting-desc">
+    Only the latest 20 are kept
+</div>
+
+</div>
+
+
+<div class="status-pill">
+    10
+</div>
+
+</div>
+
+
+<button
+    id="saveSettingsButton"
+    class="primary">
+
+    Save settings
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CREATE GROUP
+===================================================== -->
+
+<div
+    id="groupOverlay"
+    class="overlay">
+
+<div class="sheet">
+
+<div class="handle"></div>
+
+<div class="sheet-head">
+
+<h2>
+    Create group
+</h2>
+
+<button
+    class="close"
+    data-close="groupOverlay">
+
+<svg class="icon icon-small">
+    <use href="#close"></use>
+</svg>
+
+</button>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+    Group name
+</label>
+
+<input
+    id="groupNameInput"
+    class="input"
+    placeholder="Weekend Friends"
+    autocomplete="off">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+    Member usernames
+</label>
+
+<input
+    id="groupMembersInput"
+    class="input"
+    placeholder="@alex, @sam, @john"
+    autocomplete="off">
+
+</div>
+
+
+<button
+    id="createGroupButton"
+    class="primary">
+
+    Create group
+
+</button>
+
+</div>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+"use strict";
+
+// Real incoming-message notification tone/vibration; no fake test controls.
+let notificationAudioContext = null;
+function playMessageNotification(){
+    try{
+        // Supported on many Android browsers; silently skip where unavailable.
+        if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") navigator.vibrate([120, 60, 120]);
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if(!AudioContextClass) return;
+        if(!notificationAudioContext) notificationAudioContext = new AudioContextClass();
+        if(notificationAudioContext.state === "suspended") notificationAudioContext.resume();
+        const ctx = notificationAudioContext;
+        const now = ctx.currentTime;
+        [0, 0.16].forEach((offset, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(i === 0 ? 880 : 1175, now + offset);
+            gain.gain.setValueAtTime(0.0001, now + offset);
+            gain.gain.exponentialRampToValueAtTime(0.12, now + offset + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + offset + 0.11);
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.start(now + offset); osc.stop(now + offset + 0.12);
+        });
+    }catch(err){ console.debug("Notification sound unavailable:", err); }
+}
+
+
+// Add your project's Supabase URL and publishable/anon key from Project Settings.
+// Project configuration for Friends. Keep this publishable/anon key in the browser; never use service_role here.
+const SUPABASE_URL = "https://tlfhsgiksuueztsrsmgr.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_l1J4_JpUaRgF-JyMKJUyNQ_Ato0WLF_";
+const supabaseConfigured = !SUPABASE_URL.includes("YOUR_PROJECT_REF") && !SUPABASE_ANON_KEY.includes("YOUR_SUPABASE");
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+    realtime: { params: { eventsPerSecond: 10 } }
+});
+let currentUserId = null;
+let privateOrGroupRealtimeChannel = null;
+let publicRealtimeChannel = null;
+let supabaseRealtimeChannels = [];
+function stopRealtimeChannels(){
+    supabaseRealtimeChannels.forEach(channel => { try { supabase.removeChannel(channel); } catch(_) {} });
+    supabaseRealtimeChannels = [];
+}
+async function ensureSupabaseAuth(){
+    if(!supabaseConfigured) throw new Error("Add your Supabase project URL and publishable/anon key in the HTML first.");
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if(sessionError) throw sessionError;
+    if(session?.user){ currentUserId = session.user.id; return session.user; }
+    const { data, error } = await supabase.auth.signInAnonymously();
+    if(error) throw error;
+    currentUserId = data.user.id;
+    return data.user;
+}
+
+
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const MAX_MESSAGES = 50;
+
+const DB_NAME = "FriendsLocalDatabase";
+
+const DB_VERSION = 1;
+
+const STORE_NAME = "messages";
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let db = null;
+
+let friends = [];
+
+let groups = [];
+
+let notifications = [];
+
+let currentMode = "home";
+
+let currentFriend = null;
+
+let currentGroup = null;
+
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const $ = id =>
+    document.getElementById(id);
+
+
+
+function stopPublicRealtime(){
+    if(publicRealtimeChannel){ try{supabase.removeChannel(publicRealtimeChannel);}catch(_){} publicRealtimeChannel=null; }
+}
+function stopPrivateRealtime(){
+    if(privateOrGroupRealtimeChannel){ try{supabase.removeChannel(privateOrGroupRealtimeChannel);}catch(_){} privateOrGroupRealtimeChannel=null; }
+}
+const profileKey = username => normalizeUsername(username).replace(/^@/, "").toLowerCase();
+let requestListeners = [];
+function stopRequestListeners(){ requestListeners.forEach(unsub=>{try{unsub()}catch(_){}}); requestListeners=[]; stopRealtimeChannels(); }
+function addRemoteFriend(profile, key){
+    if(!profile || key===profileKey(getUsername())) return;
+    const username=normalizeUsername(profile.username || key);
+    if(friends.some(f=>profileKey(f.username)===profileKey(username))) return;
+    friends.push({id: profile.user_id || profile.id || key, userId:profile.user_id, username, name: profile.name || username.slice(1), createdAt: Date.now()});
+    saveFriends(); renderFriends();
+}
+async function registerGuestProfile(name, username){
+    const user=await ensureSupabaseAuth();
+    const key=profileKey(username);
+    const {data:existing,error:findError}=await supabase.from('profiles').select('user_id,username,username_key').eq('username_key',key).maybeSingle();
+    if(findError) throw findError;
+    if(existing && existing.user_id!==user.id) throw new Error('That username is already registered. Choose another one.');
+    const {error}=await supabase.from('profiles').upsert({user_id:user.id,username:normalizeUsername(username),username_key:key,name},{onConflict:'user_id'});
+    if(error) throw error;
+    currentUserId=user.id;
+    localStorage.setItem('friends_profile_key',key);
+}
+async function searchRegisteredUser(){
+ const raw=$("friendUsernameInput").value.trim(), box=$("userSearchResults");
+ if(!raw){box.innerHTML='<p class="profile-muted">Type any part of a username to find people.</p>';return;}
+ const query=raw.replace(/^@/,'').trim();
+ if(!query){box.innerHTML='';return;}
+ box.innerHTML='<p class="profile-muted">Searching…</p>';
+ try{
+  await ensureSupabaseAuth();
+  const {data:profiles,error}=await supabase.from('profiles').select('user_id,username,username_key,name').ilike('username','%'+query+'%').limit(50);
+  if(error)throw error;
+  const matches=(profiles||[]).filter(p=>p.user_id!==currentUserId && profileKey(p.username)!==profileKey(getUsername()));
+  if(!matches.length){box.innerHTML='<p class="profile-muted">No matching usernames found.</p>';return;}
+  box.innerHTML=matches.map((p,i)=>`<div class="people-result" data-search-user="${i}"><div class="avatar">${escapeHTML((p.name||p.username||'?').charAt(0).toUpperCase())}</div><div class="person-meta"><b>${escapeHTML(p.name||p.username||'Friend')}</b><small>${escapeHTML(p.username||'@username')}</small></div><span>View →</span></div>`).join('');
+  box.querySelectorAll('[data-search-user]').forEach(el=>el.addEventListener('click',()=>openPersonProfile(matches[Number(el.dataset.searchUser)])));
+ }catch(error){console.error(error);box.innerHTML='<p class="profile-muted">Could not search people. Check Supabase profile SELECT policy.</p>';}
+}
+
+async function sendFriendRequest(targetId, profile){
+    try{
+        const user=await ensureSupabaseAuth();
+        if(targetId===user.id){showToast('You cannot add yourself');return;}
+        const {data:existing,error:lookupError}=await supabase.from('friend_requests').select('id,status').or(`and(from_id.eq.${user.id},to_id.eq.${targetId}),and(from_id.eq.${targetId},to_id.eq.${user.id})`);
+        if(lookupError) throw lookupError;
+        if((existing||[]).some(r=>r.status==='pending'||r.status==='accepted')){showToast('Request already sent or already friends');return;}
+        const {error}=await supabase.from('friend_requests').insert({from_id:user.id,to_id:targetId,status:'pending'});
+        if(error) throw error;
+        showToast('Friend request sent');
+        $('userSearchResults').innerHTML='<p style="font-size:13px;color:#777b84">Friend request sent.</p>';
+    }catch(error){console.error(error);showToast('Could not send request. Check Supabase RLS policies.');}
+}
+async function loadAcceptedFriends(){
+    const user = await ensureSupabaseAuth();
+    currentUserId = user.id;
+    const {data, error} = await supabase.from('friend_requests')
+        .select('id,from_id,to_id,status,created_at')
+        .eq('status','accepted')
+        .or(`from_id.eq.${user.id},to_id.eq.${user.id}`)
+        .order('created_at',{ascending:false});
+    if(error) throw error;
+    const peerIds = [...new Set((data||[]).map(r => r.from_id===user.id ? r.to_id : r.from_id).filter(Boolean))];
+    if(!peerIds.length){
+        // Preserve any locally added friends, but do not invent remote friends.
+        renderFriends(); return;
+    }
+    const {data:profiles,error:profileError}=await supabase.from('profiles')
+        .select('user_id,username,username_key,name').in('user_id',peerIds);
+    if(profileError) throw profileError;
+    (profiles||[]).forEach(profile=>addRemoteFriend(profile,profile.username));
+    renderFriends();
+}
+
+async function refreshFriendRequests(){
+    if(!currentUserId) return;
+    const list=$('friendRequestsList');
+    const {data:incoming,error}=await supabase.from('friend_requests').select('id,from_id,to_id,status,created_at,profiles!friend_requests_from_id_fkey(user_id,username,name)').eq('to_id',currentUserId).eq('status','pending').order('created_at',{ascending:false});
+    if(error) throw error;
+    const pending=incoming||[];
+    pending.forEach(r=>{
+        const profile=r.profiles||{}; const notificationId='friend-request-'+r.id;
+        if(!notifications.some(n=>n.id===notificationId)){
+            notifications.push({id:notificationId,type:'friendRequest',requestId:r.id,name:profile.name||profile.username||'Someone',username:profile.username||'@someone',preview:'Sent you a friend request',time:r.created_at?new Date(r.created_at).getTime():Date.now(),read:false});
+            saveNotifications();
+        }
+    });
+    if(!pending.length){list.innerHTML='<p style="color:#858891;font-size:13px">No pending requests.</p>';return;}
+    list.innerHTML=pending.map(r=>{const profile=r.profiles||{};return `<div style="padding:12px 0;border-bottom:1px solid rgba(0,0,0,.07);display:flex;gap:8px;align-items:center"><div style="flex:1;min-width:0"><b>${escapeHTML(profile.name||profile.username||'Friend')}</b><p style="font-size:12px;color:#858891;margin-top:3px">${escapeHTML(profile.username||'')}</p></div><button class="primary" style="width:auto;padding:0 12px" data-accept-request="${r.id}">Accept</button><button class="primary" style="width:auto;padding:0 12px;background:#eee;color:#222" data-reject-request="${r.id}">Decline</button></div>`}).join('');
+    list.querySelectorAll('[data-accept-request]').forEach(btn=>btn.onclick=()=>acceptFriendRequest(btn.dataset.acceptRequest));
+    list.querySelectorAll('[data-reject-request]').forEach(btn=>btn.onclick=()=>rejectFriendRequest(btn.dataset.rejectRequest));
+}
+function startRequestListeners(){
+    stopRequestListeners();
+    if(!currentUserId) return;
+    refreshFriendRequests().catch(e=>{console.error(e);$('friendRequestsList').innerHTML='<p style="color:#b42318;font-size:13px">Could not load requests. Check Supabase RLS policies.</p>';});
+    const channel=supabase.channel('friend-requests-'+currentUserId)
+      .on('postgres_changes',{event:'INSERT',schema:'public',table:'friend_requests',filter:'to_id=eq.'+currentUserId},payload=>{
+        if(payload.new?.status==='pending' && payload.new?.from_id!==currentUserId) playMessageNotification();
+        refreshFriendRequests().catch(console.error);
+      })
+      .on('postgres_changes',{event:'UPDATE',schema:'public',table:'friend_requests',filter:'to_id=eq.'+currentUserId},()=>refreshFriendRequests().catch(console.error))
+      .on('postgres_changes',{event:'*',schema:'public',table:'friend_requests',filter:'from_id=eq.'+currentUserId},()=>refreshFriendRequests().catch(console.error))
+      .subscribe();
+    supabaseRealtimeChannels.push(channel);
+
+    // Listen for incoming private messages even when the conversation is closed.
+    const messageChannel = supabase.channel('private-notifications-'+currentUserId)
+      .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'recipient_id=eq.'+currentUserId},async payload=>{
+        const row=payload.new||{};
+        if(row.room_type!=='private' || !row.sender_id || row.sender_id===currentUserId) return;
+        const openAlready = currentMode==='private' && currentFriend && [currentFriend.id,currentFriend.peerId,currentFriend.userId].some(id=>id && String(id)===String(row.sender_id));
+        if(openAlready) return;
+        if(notifications.some(n=>String(n.messageId)===String(row.id))) return;
+        try{
+          const {data:profile,error}=await supabase.from('profiles').select('user_id,username,name').eq('user_id',row.sender_id).maybeSingle();
+          if(error) throw error;
+          const peer=profile || {user_id:row.sender_id,username:row.username||'@someone',name:row.username||'Someone'};
+          addRemoteFriend(peer,peer.username);
+          const friend=findFriendByPeerId(row.sender_id);
+          notifications.push({id:createId(),type:'message',peerId:row.sender_id,name:peer.name||peer.username||'Someone',username:peer.username||'@someone',messageId:row.id,preview:String(row.content||'New message').slice(0,100),time:row.created_at?new Date(row.created_at).getTime():Date.now(),read:false});
+          if(friend) friend.lastMessageAt=Date.now();
+          saveNotifications(); renderFriends(); playMessageNotification();
+          showToast(`${peer.name||peer.username||'Someone'} sent you a message`);
+        }catch(e){console.error('Could not create message notification:',e);}
+      }).subscribe();
+    supabaseRealtimeChannels.push(messageChannel);
+}
+async function acceptFriendRequest(requestId){
+    try{
+        const user=await ensureSupabaseAuth();
+        const {data:r,error:readError}=await supabase.from('friend_requests').select('id,from_id,to_id,status').eq('id',requestId).eq('to_id',user.id).single();
+        if(readError) throw readError;
+        const {error}=await supabase.from('friend_requests').update({status:'accepted'}).eq('id',requestId).eq('to_id',user.id);
+        if(error) throw error;
+        const {data:profile}=await supabase.from('profiles').select('user_id,username,name').eq('user_id',r.from_id).maybeSingle();
+        if(profile) addRemoteFriend(profile,profile.username);
+        await loadAcceptedFriends();
+        await refreshFriendRequests(); showToast('Friend request accepted');
+    }catch(error){console.error(error);showToast('Could not accept request. Check Supabase RLS policies.');}
+}
+async function rejectFriendRequest(requestId){try{const user=await ensureSupabaseAuth();const {error}=await supabase.from('friend_requests').update({status:'rejected'}).eq('id',requestId).eq('to_id',user.id);if(error)throw error;await refreshFriendRequests();showToast('Request declined');}catch(error){console.error(error);showToast('Could not decline request');}}
+function mapDbMessage(row){return {id:row.id,from:row.sender_id===currentUserId?myId:(row.sender_id||row.username),senderId:row.sender_id,to:row.recipient_id===currentUserId?myId:row.recipient_id,text:String(row.content||''),time:row.created_at?new Date(row.created_at).getTime():Date.now(),seenAt:row.seen_at||null,displayName:row.displayName||row.display_name||''};}
+async function addDisplayNames(rows){
+    const list=Array.isArray(rows)?rows:[];
+    const ids=[...new Set(list.map(r=>r.sender_id).filter(Boolean))];
+    if(!ids.length)return list;
+    try{
+        const {data,error}=await supabase.from('profiles').select('user_id,name,username').in('user_id',ids);
+        if(error)throw error;
+        const names=new Map((data||[]).map(p=>[p.user_id,String(p.name||p.username||'Friend')]));
+        return list.map(r=>({...r,displayName:names.get(r.sender_id)||String(r.username||'Friend')}));
+    }catch(error){console.warn('Could not load sender display names:',error);return list.map(r=>({...r,displayName:String(r.username||'Friend')}));}
+}
+async function startSupabasePrivateMessages(){
+    stopPrivateRealtime();
+    if(currentMode!=='private'||!currentFriend) return;
+    try{
+        const user=await ensureSupabaseAuth();
+        let peerId=currentFriend.userId||currentFriend.id;
+        if(!String(peerId||'').match(/^[0-9a-f-]{36}$/i)){
+            const {data:peer,error}=await supabase.from('profiles').select('user_id').eq('username_key',profileKey(currentFriend.username)).maybeSingle();
+            if(error) throw error; if(!peer){$('chatState').textContent='Friend account not found';return;} peerId=peer.user_id; currentFriend.userId=peerId;
+        }
+        $('chatState').textContent='Connecting to chat…';
+        const load=async()=>{
+            const {data,error}=await supabase.from('messages').select('*').eq('room_type','private').or(`and(sender_id.eq.${user.id},recipient_id.eq.${peerId}),and(sender_id.eq.${peerId},recipient_id.eq.${user.id})`).order('created_at',{ascending:true}).limit(MAX_MESSAGES);
+            if(error) throw error;
+            if(currentMode!=='private'||!currentFriend) return;
+            const unread=(data||[]).filter(m=>m.sender_id===peerId && m.recipient_id===user.id && !m.seen_at).map(m=>m.id);
+            if(unread.length){const {error:seenError}=await supabase.from('messages').update({seen_at:new Date().toISOString()}).in('id',unread).eq('recipient_id',user.id);if(seenError)console.warn('Could not update seen receipts:',seenError);}
+            const refreshedRows=(data||[]).map(m=>unread.includes(m.id)?{...m,seen_at:new Date().toISOString()}:m);
+            const namedRows=await addDisplayNames(refreshedRows); const msgs=namedRows.map(mapDbMessage); renderMessages($('messages'),msgs);
+            if(msgs.length){currentFriend.lastMessageAt=Math.max(...msgs.map(m=>m.time||0));renderFriends();}
+            const {data:presence}=await supabase.from('profiles').select('is_online,last_seen_at').eq('user_id',peerId).maybeSingle();
+            $('chatState').textContent=presence?.is_online?'Active now':(presence?.last_seen_at?'Last seen '+new Date(presence.last_seen_at).toLocaleString():'Connected');
+        };
+        await load();
+        let initial=true;
+        const channel=supabase.channel('private-messages-'+[user.id,peerId].sort().join('-'))
+          .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},payload=>{
+            const row=payload.new||{}; if(row.room_type!=='private') return;
+            if(!initial && row.sender_id!==user.id && [row.sender_id,row.recipient_id].includes(user.id) && [row.sender_id,row.recipient_id].includes(peerId)) playMessageNotification();
+            load().catch(e=>console.error('Private message refresh failed',e));
+          })
+          .on('postgres_changes',{event:'UPDATE',schema:'public',table:'messages',filter:'recipient_id=eq.'+user.id},()=>load().catch(e=>console.error('Seen receipt refresh failed',e)))
+          .subscribe();
+        const presence=supabase.channel('friend-presence-'+peerId)
+          .on('postgres_changes',{event:'UPDATE',schema:'public',table:'profiles',filter:'user_id=eq.'+peerId},payload=>{
+            const profile=payload.new||{};
+            $('chatState').textContent=profile.is_online?'Active now':(profile.last_seen_at?'Last seen '+new Date(profile.last_seen_at).toLocaleString():'Offline');
+          }).subscribe();
+        initial=false; privateOrGroupRealtimeChannel=channel; supabaseRealtimeChannels.push(channel,presence);
+    }catch(error){console.error('Supabase private chat error',error);$('chatState').textContent='Connection error';showToast('Supabase chat error. Check setup and RLS.');}
+}
+function startGroupRealtime(groupId){
+    if(privateOrGroupRealtimeChannel){try{supabase.removeChannel(privateOrGroupRealtimeChannel)}catch(_){}privateOrGroupRealtimeChannel=null;}
+    const refresh=async()=>{const {data,error}=await supabase.from('messages').select('*').eq('room_type','group').eq('group_id',groupId).order('created_at',{ascending:true}).limit(MAX_MESSAGES);if(error)throw error;if(currentMode==='group'&&currentGroup?.id===groupId){const namedRows=await addDisplayNames(data||[]);renderMessages($('groupMessages'),namedRows.map(mapDbMessage));}};
+    refresh().catch(e=>{console.error(e);showToast('Could not load group messages. Check group SQL/RLS.');});
+    let initial=true;
+    const channel=supabase.channel('group-messages-'+groupId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'group_id=eq.'+groupId},payload=>{if(!initial&&payload.new?.sender_id!==currentUserId)playMessageNotification();refresh().catch(console.error);}).subscribe();
+    initial=false;privateOrGroupRealtimeChannel=channel;supabaseRealtimeChannels.push(channel);
+}
+async function loadRemoteGroups(){
+    const user=await ensureSupabaseAuth();
+    const {data:members,error}=await supabase.from('group_members').select('group_id,groups(id,name,created_at,group_members(user_id,profiles(username)))').eq('user_id',user.id);
+    if(error) throw error;
+    const remote=(members||[]).map(m=>{const g=m.groups;if(!g)return null;return {id:g.id,name:g.name,createdAt:g.created_at?new Date(g.created_at).getTime():Date.now(),members:(g.group_members||[]).map(x=>x.profiles?.username).filter(Boolean),remote:true};}).filter(Boolean);
+    const local=groups.filter(g=>!g.remote); groups=[...remote,...local.filter(g=>!remote.some(r=>r.id===g.id))];saveGroups();
+}
+
+/* =====================================================
+   ID
+===================================================== */
+
+function createId(){
+
+    if(
+        window.crypto &&
+        typeof crypto.randomUUID === "function"
+    ){
+
+        return crypto.randomUUID();
+
+    }
+
+    return (
+        "id-" +
+        Date.now() +
+        "-" +
+        Math.random()
+            .toString(36)
+            .slice(2)
+    );
+}
+
+
+function getUserId(){
+
+    let id =
+        localStorage.getItem(
+            "friends_id"
+        );
+
+    if(!id){
+
+        id = createId();
+
+        localStorage.setItem(
+            "friends_id",
+            id
+        );
+
+    }
+
+    return id;
+}
+
+
+const myId = getUserId();
+
+
+/* =====================================================
+   NAME
+===================================================== */
+
+function getName(){
+
+    return (
+        localStorage.getItem(
+            "friends_name"
+        ) ||
+        "Friend"
+    );
+}
+
+
+function saveName(name){
+
+    localStorage.setItem(
+        "friends_name",
+        name.trim() || "Friend"
+    );
+}
+
+
+/* =====================================================
+   USERNAME
+===================================================== */
+
+function normalizeUsername(value){
+
+    value =
+        String(value || "")
+            .trim()
+            .replace(/\s+/g,"")
+            .replace(/^@+/,"");
+
+    return value
+        ? "@" + value
+        : "";
+}
+
+
+function getUsername(){
+
+    return (
+        localStorage.getItem(
+            "friends_username"
+        ) ||
+        "@username"
+    );
+}
+
+
+function saveUsername(username){
+
+    username =
+        normalizeUsername(
+            username
+        );
+
+    if(!username){
+        username = "@username";
+    }
+
+    localStorage.setItem(
+        "friends_username",
+        username
+    );
+}
+
+
+/* =====================================================
+   GREETING
+===================================================== */
+
+function updateGreeting(){
+
+    const name = getName();
+
+    $("helloName").textContent =
+        name !== "Friend"
+            ? `, ${name}`
+            : "";
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function updateProfile(){
+
+    const name = getName();
+
+    const username = getUsername();
+
+    $("profileName").textContent =
+        name;
+
+    $("profileUsername").textContent =
+        username;
+
+    $("profileAvatar").textContent =
+        name
+            .charAt(0)
+            .toUpperCase() ||
+        "F";
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(
+            /[&<>"']/g,
+            char => ({
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+            }[char])
+        );
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast = $("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            ()=>{
+                toast.classList.remove("show");
+            },
+            2200
+        );
+}
+
+
+/* =====================================================
+   HOME NAVIGATION VISIBILITY
+===================================================== */
+
+function isHomeVisible(){
+
+    return $("homePage")
+        .classList
+        .contains("active");
+}
+
+
+function updateNavigationVisibility(){
+
+    const home =
+        isHomeVisible();
+
+    const bottomNav =
+        $("bottomNav");
+
+    const header =
+        $("homeHeader");
+
+    if(home){
+
+        bottomNav.classList.remove(
+            "hidden"
+        );
+
+        header.style.display =
+            "flex";
+
+    }else{
+
+        bottomNav.classList.add(
+            "hidden"
+        );
+
+        header.style.display =
+            "none";
+
+    }
+}
+
+
+/* =====================================================
+   COMPOSER VISIBILITY
+===================================================== */
+
+function updateComposer(){
+
+    const show =
+        currentMode === "private" ||
+        currentMode === "group" ||
+        currentMode === "public";
+
+    $("composerWrap").style.display =
+        show
+            ? "block"
+            : "none";
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+function openModal(id){
+
+    $(id)
+        .classList
+        .add("show");
+
+    $("bottomNav")
+        .classList
+        .add("hidden");
+
+    $("homeHeader")
+        .style.display =
+        "none";
+}
+
+
+function closeModal(id){
+
+    $(id)
+        .classList
+        .remove("show");
+
+    const anyOverlayOpen =
+        document.querySelector(
+            ".overlay.show"
+        );
+
+    if(
+        !anyOverlayOpen &&
+        isHomeVisible()
+    ){
+
+        updateNavigationVisibility();
+
+    }
+
+}
+
+
+document
+    .querySelectorAll(
+        "[data-close]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                ()=>{
+                    closeModal(
+                        button.dataset.close
+                    );
+                }
+            );
+
+        }
+    );
+
+
+document
+    .querySelectorAll(
+        ".overlay"
+    )
+    .forEach(
+        overlay => {
+
+            overlay.addEventListener(
+                "click",
+                event => {
+
+                    if(
+                        event.target ===
+                        overlay
+                    ){
+
+                        closeModal(
+                            overlay.id
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   FRIEND STORAGE
+===================================================== */
+
+function loadFriends(){
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                "friends_list"
+            );
+
+        friends =
+            raw
+                ? JSON.parse(raw)
+                : [];
+
+        if(
+            !Array.isArray(friends)
+        ){
+
+            friends = [];
+
+        }
+
+        friends =
+            friends.map(
+                friend => {
+
+                    if(
+                        !friend.username &&
+                        friend.id
+                    ){
+
+                        friend.username =
+                            normalizeUsername(
+                                friend.id
+                            );
+
+                    }
+
+                    return friend;
+
+                }
+            );
+
+    }catch{
+
+        friends = [];
+
+    }
+
+    saveFriends();
+
+    renderFriends();
+}
+
+
+function saveFriends(){
+
+    localStorage.setItem(
+        "friends_list",
+        JSON.stringify(
+            friends
+        )
+    );
+}
+
+
+/* =====================================================
+   FRIEND RENDER
+===================================================== */
+
+function renderFriends(){
+
+    const list =
+        $("friendList");
+
+    const query =
+        $("friendSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const recentTime = friend => {
+        const saved = Number(friend.lastMessageAt || friend.lastActivityAt || friend.updatedAt || 0);
+        const notificationTime = notifications.reduce((latest, n) => {
+            const samePeer = n.peerId && (n.peerId === friend.id || n.peerId === friend.peerId);
+            return samePeer ? Math.max(latest, Number(n.time || 0)) : latest;
+        }, 0);
+        return Math.max(saved, notificationTime);
+    };
+
+    const filtered =
+        friends.filter(
+            friend => {
+
+                const name =
+                    String(
+                        friend.name || ""
+                    ).toLowerCase();
+
+                const username =
+                    String(
+                        friend.username || ""
+                    ).toLowerCase();
+
+                return (
+                    name.includes(query) ||
+                    username.includes(query)
+                );
+
+            }
+        )
+        .sort((a, b) => recentTime(b) - recentTime(a));
+
+
+    $("friendCount")
+        .textContent =
+        `${friends.length} ${
+            friends.length === 1
+                ? "friend"
+                : "friends"
+        }`;
+
+
+    if(!filtered.length){
+
+        list.innerHTML = `
+
+        <div class="empty glass">
+
+            <div class="empty-icon">
+
+                <svg class="icon icon-large">
+                    <use href="#users"></use>
+                </svg>
+
+            </div>
+
+            <strong>
+                ${
+                    friends.length
+                        ? "No friends found"
+                        : "Your circle is empty"
+                }
+            </strong>
+
+            <span>
+                ${
+                    friends.length
+                        ? "Try another search."
+                        : "Add a friend to start chatting."
+                }
+            </span>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        filtered
+            .map(
+                friend => {
+
+                    const initial =
+                        escapeHTML(
+                            (
+                                friend.name ||
+                                "?"
+                            )
+                                .charAt(0)
+                                .toUpperCase()
+                        );
+
+
+                    return `
+
+                    <div
+                        class="friend glass"
+                        data-friend-id="${
+                            escapeHTML(
+                                friend.id
+                            )
+                        }">
+
+                        <div class="avatar">
+
+                            ${initial}
+
+                            <span class="online"></span>
+
+                        </div>
+
+
+                        <div class="friend-info">
+
+                            <div class="friend-name">
+
+                                ${
+                                    escapeHTML(
+                                        friend.name ||
+                                        "Friend"
+                                    )
+                                }
+                                ${notifications.some(n => !n.read && n.peerId && [friend.id, friend.peerId, friend.userId].some(id => id && String(id) === String(n.peerId)) && n.type !== "friendRequest") ? '<span class="friend-unread-dot" aria-label="New message" title="New message"></span>' : ''}
+
+                            </div>
+
+                            <div class="friend-status">
+
+                                ${
+                                    escapeHTML(
+                                        friend.username ||
+                                        "@username"
+                                    )
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chevron">
+
+                            <svg
+                                class="icon icon-small"
+                                style="transform:rotate(180deg);">
+
+                                <use href="#back"></use>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    list
+        .querySelectorAll(
+            "[data-friend-id]"
+        )
+        .forEach(
+            card => {
+
+                card.addEventListener(
+                    "click",
+                    ()=>{
+                        openChat(
+                            card.dataset.friendId
+                        );
+                    }
+                );
+
+            }
+        );
+}
+
+
+/* =====================================================
+   ADD FRIEND
+===================================================== */
+
+function openAddFriend(){
+
+    openModal(
+        "addFriendOverlay"
+    );
+
+    setTimeout(
+        ()=>{
+            $("friendUsernameInput")
+                .focus();
+        },
+        150
+    );
+}
+
+
+function addFriend(){
+
+    const username =
+        normalizeUsername(
+            $("friendUsernameInput")
+                .value
+        );
+
+    const name =
+        $("friendNameInput")
+            .value
+            .trim();
+
+
+    if(!username){
+
+        showToast(
+            "Enter a username"
+        );
+
+        return;
+    }
+
+
+    if(
+        username.toLowerCase() ===
+        getUsername().toLowerCase()
+    ){
+
+        showToast(
+            "You cannot add yourself"
+        );
+
+        return;
+    }
+
+
+    const existing =
+        friends.some(
+            friend =>
+                String(
+                    friend.username || ""
+                ).toLowerCase() ===
+                username.toLowerCase()
+        );
+
+
+    if(existing){
+
+        showToast(
+            "Friend already exists"
+        );
+
+        return;
+    }
+
+
+    const friend = {
+
+        id:
+            createId(),
+
+        username:
+            username,
+
+        name:
+            name ||
+            username.replace("@",""),
+
+        createdAt:
+            Date.now()
+
+    };
+
+
+    friends.push(
+        friend
+    );
+
+
+    saveFriends();
+
+    renderFriends();
+
+
+    $("friendUsernameInput").value =
+        "";
+
+    $("friendNameInput").value =
+        "";
+
+
+    closeModal(
+        "addFriendOverlay"
+    );
+
+
+    showToast(
+        "Friend added"
+    );
+}
+
+
+/* =====================================================
+   GROUP STORAGE
+===================================================== */
+
+function loadGroups(){
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                "friends_groups"
+            );
+
+        groups =
+            raw
+                ? JSON.parse(raw)
+                : [];
+
+        if(
+            !Array.isArray(groups)
+        ){
+
+            groups = [];
+
+        }
+
+    }catch{
+
+        groups = [];
+
+    }
+
+    renderGroups();
+}
+
+
+function saveGroups(){
+
+    localStorage.setItem(
+        "friends_groups",
+        JSON.stringify(
+            groups
+        )
+    );
+
+    renderGroups();
+}
+
+
+/* =====================================================
+   GROUP RENDER
+===================================================== */
+
+function renderGroups(){
+
+    const section =
+        $("groupsSection");
+
+    const list =
+        $("groupList");
+
+    const query =
+        $("friendSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        groups.filter(
+            group => {
+
+                const name =
+                    String(
+                        group.name || ""
+                    ).toLowerCase();
+
+                return name.includes(
+                    query
+                );
+
+            }
+        );
+
+
+    $("groupCount")
+        .textContent =
+        `${groups.length} ${
+            groups.length === 1
+                ? "group"
+                : "groups"
+        }`;
+
+
+    if(!groups.length){
+
+        section.style.display =
+            "none";
+
+        return;
+    }
+
+
+    section.style.display =
+        "block";
+
+
+    if(!filtered.length){
+
+        list.innerHTML = `
+
+            <div class="empty glass">
+
+                <div class="empty-icon">
+
+                    <svg class="icon icon-large">
+                        <use href="#users"></use>
+                    </svg>
+
+                </div>
+
+                <strong>
+                    No groups found
+                </strong>
+
+                <span>
+                    Try another search.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        filtered
+            .map(
+                group => {
+
+                    const initial =
+                        escapeHTML(
+                            (
+                                group.name ||
+                                "G"
+                            )
+                                .charAt(0)
+                                .toUpperCase()
+                        );
+
+
+                    return `
+
+                    <div
+                        class="friend glass"
+                        data-group-id="${
+                            escapeHTML(
+                                group.id
+                            )
+                        }">
+
+                        <div class="avatar group-avatar">
+
+                            ${initial}
+
+                        </div>
+
+
+                        <div class="friend-info">
+
+                            <div class="friend-name">
+
+                                ${
+                                    escapeHTML(
+                                        group.name
+                                    )
+                                }
+
+                            </div>
+
+
+                            <div class="friend-status">
+
+                                ${
+                                    Array.isArray(
+                                        group.members
+                                    )
+                                        ? group.members.length
+                                        : 0
+                                }
+                                members
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chevron">
+
+                            <svg
+                                class="icon icon-small"
+                                style="transform:rotate(180deg);">
+
+                                <use href="#back"></use>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    list
+        .querySelectorAll(
+            "[data-group-id]"
+        )
+        .forEach(
+            card => {
+
+                card.addEventListener(
+                    "click",
+                    ()=>{
+                        openGroupChat(
+                            card.dataset.groupId
+                        );
+                    }
+                );
+
+            }
+        );
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function loadNotifications(){
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                "friends_notifications"
+            );
+
+        notifications =
+            raw
+                ? JSON.parse(raw)
+                : [];
+
+        if(
+            !Array.isArray(
+                notifications
+            )
+        ){
+
+            notifications = [];
+
+        }
+
+    }catch{
+
+        notifications = [];
+
+    }
+
+
+    renderNotifications();
+
+    updateNotificationBadge();
+}
+
+
+function saveNotifications(){
+
+    notifications =
+        notifications.slice(
+            -30
+        );
+
+    localStorage.setItem(
+        "friends_notifications",
+        JSON.stringify(
+            notifications
+        )
+    );
+
+    renderNotifications();
+
+    updateNotificationBadge();
+}
+
+
+/* =====================================================
+   RELATIVE TIME
+===================================================== */
+
+function notificationTime(
+    timestamp
+){
+
+    const seconds =
+        Math.max(
+            0,
+            Math.floor(
+                (Date.now() -
+                timestamp) /
+                1000
+            )
+        );
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
+
+    const days =
+        Math.floor(
+            hours / 24
+        );
+
+
+    if(minutes < 1){
+        return "just now";
+    }
+
+
+    if(minutes < 60){
+
+        return `${minutes} minute${
+            minutes === 1
+                ? ""
+                : "s"
+        } ago`;
+
+    }
+
+
+    if(hours < 24){
+
+        return `${hours} hour${
+            hours === 1
+                ? ""
+                : "s"
+        } ago`;
+
+    }
+
+
+    return `${days} day${
+        days === 1
+            ? ""
+            : "s"
+    } ago`;
+}
+
+
+/* =====================================================
+   NOTIFICATION RENDER
+===================================================== */
+
+function renderNotifications(){
+
+    const list =
+        $("notificationList");
+
+
+    if(!notifications.length){
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+
+                    <svg class="icon icon-large">
+                        <use href="#notification"></use>
+                    </svg>
+
+                </div>
+
+                <strong>
+                    No notifications
+                </strong>
+
+                <span>
+                    Friend requests and new messages will appear here.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        notifications
+            .slice()
+            .reverse()
+            .map(
+                notification => {
+
+                    const initial =
+                        escapeHTML(
+                            (
+                                notification.name ||
+                                "?"
+                            )
+                                .charAt(0)
+                                .toUpperCase()
+                        );
+
+
+                    const unread =
+                        !notification.read;
+
+
+                    return `
+
+                    <div
+                        class="notification-item glass ${
+                            unread
+                                ? "unread"
+                                : ""
+                        }"
+                        data-notification-id="${
+                            escapeHTML(
+                                notification.id
+                            )
+                        }">
+
+                        <div class="notification-avatar">
+
+                            ${initial}
+
+                        </div>
+
+
+                        <div class="notification-info">
+
+                            <div class="notification-text">
+
+                                <strong>
+                                    ${
+                                        escapeHTML(
+                                            notification.username ||
+                                            notification.name ||
+                                            "Someone"
+                                        )
+                                    }
+                                </strong>
+
+                                ${notification.type === "friendRequest" ? "sent you a friend request" : "messaged you"}
+
+                            </div>
+
+
+                            ${
+                                notification.preview
+                                    ? `
+                                    <div class="notification-preview">
+                                        ${escapeHTML(
+                                            notification.preview
+                                        )}
+                                    </div>
+                                    `
+                                    : ""
+                            }
+
+
+                            <div class="notification-time">
+
+                                ${
+                                    notificationTime(
+                                        notification.time
+                                    )
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            unread
+                                ? `
+                                    <span class="notification-unread-dot"></span>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    list
+        .querySelectorAll(
+            "[data-notification-id]"
+        )
+        .forEach(
+            item => {
+
+                item.addEventListener(
+                    "click",
+                    ()=>{
+                        openNotificationChat(
+                            item.dataset.notificationId
+                        );
+                    }
+                );
+
+            }
+        );
+}
+
+
+/* =====================================================
+   BADGE
+===================================================== */
+
+function updateNotificationBadge(){
+
+    const badge =
+        $("notificationBadge");
+
+
+    const unread =
+        notifications.some(
+            item =>
+                !item.read
+        );
+
+
+    badge.classList.toggle(
+        "show",
+        unread
+    );
+}
+
+
+/* =====================================================
+   FIND FRIEND
+===================================================== */
+
+function findFriendByPeerId(
+    peerId
+){
+
+    return friends.find(
+        friend => String(friend.id) === String(peerId) ||
+            String(friend.peerId || '') === String(peerId) ||
+            String(friend.userId || '') === String(peerId)
+    );
+}
+
+
+/* =====================================================
+   MESSAGE NOTIFICATION
+===================================================== */
+
+function addMessageNotification(
+    peerId,
+    message
+){
+
+    if(
+        !message ||
+        message.from === myId
+    ){
+
+        return;
+    }
+
+
+    if(
+        currentMode === "private" &&
+        currentFriend &&
+        currentFriend.id === peerId
+    ){
+
+        return;
+    }
+
+
+    if(
+        notifications.some(
+            item =>
+                item.messageId ===
+                message.id
+        )
+    ){
+
+        return;
+    }
+
+
+    const friend =
+        findFriendByPeerId(
+            peerId
+        );
+
+
+    const name =
+        friend
+            ? friend.name
+            : "Someone";
+
+
+    const username =
+        friend
+            ? friend.username
+            : "@someone";
+
+
+    if(friend){ friend.lastMessageAt = Date.now(); }
+
+    notifications.push({
+
+        id:
+            createId(),
+
+        peerId:
+            peerId,
+
+        name:
+            name,
+
+        username:
+            username,
+
+        messageId:
+            message.id,
+
+        preview:
+            message.text,
+
+        time:
+            Date.now(),
+
+        read:
+            false
+
+    });
+
+
+    saveNotifications();
+    renderFriends();
+
+    showToast(
+        `${username} messaged you`
+    );
+}
+
+
+/* =====================================================
+   OPEN NOTIFICATION CHAT
+===================================================== */
+
+function openNotificationChat(
+    notificationId
+){
+
+    const notification =
+        notifications.find(
+            item =>
+                item.id ===
+                notificationId
+        );
+
+
+    if(!notification){
+        return;
+    }
+
+
+    // Notifications are one-time: remove immediately when opened.
+    notifications = notifications.filter(item => item.id !== notificationId);
+    saveNotifications();
+
+
+    closeModal(
+        "notificationsOverlay"
+    );
+
+    if(notification.type === "friendRequest"){
+        openModal("addFriendOverlay");
+        return;
+    }
+
+    if(
+        notification.peerId
+    ){
+
+        const friend =
+            findFriendByPeerId(
+                notification.peerId
+            );
+
+
+        if(friend){
+
+            openChat(
+                friend.id
+            );
+
+            return;
+        }
+
+    }
+
+
+    showToast(
+        "Conversation unavailable"
+    );
+}
+
+
+/* =====================================================
+   DATABASE
+===================================================== */
+
+function initDB(){
+
+    return new Promise(
+        (resolve,reject)=>{
+
+            const request =
+                indexedDB.open(
+                    DB_NAME,
+                    DB_VERSION
+                );
+
+
+            request.onupgradeneeded =
+                event => {
+
+                    const database =
+                        event.target.result;
+
+                    if(
+                        !database.objectStoreNames
+                            .contains(
+                                STORE_NAME
+                            )
+                    ){
+
+                        database.createObjectStore(
+                            STORE_NAME,
+                            {
+                                keyPath:"key"
+                            }
+                        );
+
+                    }
+
+                };
+
+
+            request.onsuccess =
+                event => {
+
+                    db =
+                        event.target.result;
+
+                    resolve();
+
+                };
+
+
+            request.onerror =
+                ()=>{
+                    reject(
+                        request.error
+                    );
+                };
+
+        }
+    );
+}
+
+
+function messageKey(
+    type,
+    id
+){
+
+    return (
+        type +
+        "|" +
+        id
+    );
+}
+
+
+function loadMessages(
+    type,
+    id
+){
+
+    return new Promise(
+        resolve => {
+
+            if(!db){
+
+                resolve([]);
+
+                return;
+            }
+
+
+            const request =
+                db
+                    .transaction(
+                        STORE_NAME,
+                        "readonly"
+                    )
+                    .objectStore(
+                        STORE_NAME
+                    )
+                    .get(
+                        messageKey(
+                            type,
+                            id
+                        )
+                    );
+
+
+            request.onsuccess =
+                ()=>{
+                    resolve(
+                        request.result &&
+                        Array.isArray(
+                            request.result.messages
+                        )
+                            ? request.result.messages
+                            : []
+                    );
+                };
+
+
+            request.onerror =
+                ()=>{
+                    resolve([]);
+                };
+
+        }
+    );
+}
+
+
+function saveMessages(
+    type,
+    id,
+    messages
+){
+
+    if(!db){
+        return;
+    }
+
+
+    const trimmed =
+        messages.slice(
+            -MAX_MESSAGES
+        );
+
+
+    db
+        .transaction(
+            STORE_NAME,
+            "readwrite"
+        )
+        .objectStore(
+            STORE_NAME
+        )
+        .put({
+
+            key:
+                messageKey(
+                    type,
+                    id
+                ),
+
+            messages:
+                trimmed
+
+        });
+}
+
+
+/* =====================================================
+   MESSAGE RENDER
+===================================================== */
+
+function renderMessages(
+    container,
+    messages
+){
+
+    if(!messages.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+
+                    <svg class="icon">
+
+                        <use href="#chat"></use>
+
+                    </svg>
+
+                </div>
+
+
+                <strong>
+                    No messages yet
+                </strong>
+
+
+                <span>
+                    Start the conversation.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        messages
+            .map(
+                message => {
+
+                    const mine =
+                        message.from ===
+                        myId;
+
+
+                    const time =
+                        new Date(
+                            message.time
+                        )
+                            .toLocaleTimeString(
+                                [],
+                                {
+                                    hour:"numeric",
+                                    minute:"2-digit"
+                                }
+                            );
+
+
+                    return `
+
+                    <div
+                        class="message-row ${
+                            mine
+                                ? "mine"
+                                : "theirs"
+                        }">
+
+                        <div class="bubble">
+
+                            ${!mine && message.displayName ? `<strong class="message-sender-name">${escapeHTML(message.displayName)}</strong>` : ""}
+                            ${
+                                escapeHTML(
+                                    message.text
+                                )
+                            }
+
+                            <span class="time">${time}</span>
+                            ${mine && message.seenAt ? '<span class="message-seen-receipt">Seen ✓✓</span>' : ''}
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    requestAnimationFrame(
+        ()=>{
+            requestAnimationFrame(
+                ()=>{
+
+                    const lastMessage =
+                        container.lastElementChild;
+
+                    if(lastMessage){
+
+                        lastMessage.scrollIntoView({
+                            block:"end",
+                            behavior:"auto"
+                        });
+
+                    }else{
+
+                        container.scrollTop =
+                            container.scrollHeight;
+
+                    }
+
+                }
+            );
+        }
+    );
+}
+
+
+/* =====================================================
+   OPEN PRIVATE CHAT
+===================================================== */
+
+async function openChat(
+    friendId
+){
+
+    const friend =
+        friends.find(
+            item =>
+                item.id === friendId
+        );
+
+
+    if(!friend){
+        return;
+    }
+
+
+    // Opening a conversation counts its new-message alerts as viewed.
+    notifications = notifications.filter(n => n.type === "friendRequest" || !n.peerId || ![friend.id, friend.peerId, friend.userId].some(id => id && String(id) === String(n.peerId)));
+    saveNotifications();
+
+    currentMode =
+        "private";
+
+    currentFriend =
+        friend;
+
+    currentGroup =
+        null;
+
+
+    hidePages();
+
+
+    $("chatPage")
+        .classList.add(
+            "active"
+        );
+
+
+    updateComposer();
+
+    updateNavigationVisibility();
+
+
+    $("chatName")
+        .textContent =
+        friend.name;
+
+
+    $("chatInitial")
+        .textContent =
+        friend.name
+            .charAt(0)
+            .toUpperCase();
+
+
+    $("chatState")
+        .textContent =
+        "Connecting…";
+
+
+    const messages =
+        await loadMessages(
+            "private",
+            friend.id
+        );
+
+
+    renderMessages(
+        $("messages"),
+        messages.slice(-MAX_MESSAGES)
+    );
+
+    startSupabasePrivateMessages();
+}
+
+
+/* =====================================================
+   SEND MESSAGE
+===================================================== */
+
+async function sendMessage(){
+
+    const input =
+        $("messageInput");
+
+
+    const text =
+        input.value.trim();
+
+
+    if(!text){
+        return;
+    }
+
+
+    if(
+        currentMode === "private"
+    ){
+
+        if(!currentFriend) return;
+
+        const myUsername = getUsername().trim();
+        const friendUsername = String(currentFriend.username || "").trim();
+
+        if(!myUsername || myUsername === "@username" ||
+           !friendUsername || friendUsername === "@username"){
+            showToast("Set your username and your friend's username in Settings");
+            return;
+        }
+
+        try{
+            const user=await ensureSupabaseAuth();
+            let peerId=currentFriend.userId||currentFriend.id;
+            if(!String(peerId||'').match(/^[0-9a-f-]{36}$/i)){
+                const {data:peer,error:peerError}=await supabase.from('profiles').select('user_id').eq('username_key',profileKey(friendUsername)).maybeSingle();
+                if(peerError) throw peerError; if(!peer) throw new Error('Friend username is not registered on Supabase.'); peerId=peer.user_id; currentFriend.userId=peerId;
+            }
+            const {error}=await supabase.from('messages').insert({sender_id:user.id,recipient_id:peerId,room_type:'private',username:myUsername,content:text});
+            if(error) throw error;
+        }catch(error){console.error('Could not send Supabase private message:',error);showToast('Could not send private message. Check friend status and Supabase RLS.');return;}
+    }
+
+    else if(
+        currentMode === "group"
+    ){
+
+        await sendGroupMessage(
+            text
+        );
+
+    }
+
+
+    else if(
+        currentMode === "public"
+    ){
+
+        await sendPublicMessage(
+            text
+        );
+
+    }
+
+
+    input.value =
+        "";
+
+    input.focus();
+}
+
+
+/* =====================================================
+   GROUP CREATOR
+===================================================== */
+
+function openGroupCreator(){
+
+    openModal(
+        "groupOverlay"
+    );
+
+}
+
+
+async function createGroup(){
+    const name=$('groupNameInput').value.trim();
+    const memberText=$('groupMembersInput').value.trim();
+    if(!name){showToast('Enter a group name');return;}
+    try{
+        const user=await ensureSupabaseAuth();
+        const usernames=[...new Set(memberText.split(',').map(v=>normalizeUsername(v)).filter(Boolean))];
+        const {data:profiles,error:profileError}=await supabase.from('profiles').select('user_id,username,name').in('username_key',usernames.map(profileKey));
+        if(profileError) throw profileError;
+        const missing=usernames.filter(u=>!(profiles||[]).some(p=>profileKey(p.username)===profileKey(u)));
+        if(missing.length){showToast('User not found: '+missing.join(', '));return;}
+        const {data:group,error:groupError}=await supabase.from('groups').insert({name,created_by:user.id}).select('id,name,created_at').single();
+        if(groupError) throw groupError;
+        const memberIds=[...new Set([user.id,...(profiles||[]).map(p=>p.user_id)])];
+        const {error:memberError}=await supabase.from('group_members').insert(memberIds.map(user_id=>({group_id:group.id,user_id})));
+        if(memberError) throw memberError;
+        groups.push({id:group.id,name:group.name,members:(profiles||[]).map(p=>p.username),createdAt:Date.now(),remote:true});
+        saveGroups();
+        $('groupNameInput').value='';$('groupMembersInput').value='';closeModal('groupOverlay');
+        await openGroupChat(group.id);showToast('Group created');
+    }catch(error){console.error('Supabase group creation failed:',error);showToast('Could not create group. Check group SQL/RLS and usernames.');}
+}
+
+/* =====================================================
+   OPEN GROUP CHAT
+===================================================== */
+
+async function openGroupChat(groupId){
+    let group=groups.find(item=>item.id===groupId);
+    if(!group){showToast('Group not found');return;}
+    currentMode='group';currentGroup=group;currentFriend=null;hidePages();$('groupPage').classList.add('active');updateComposer();updateNavigationVisibility();
+    $('groupName').textContent=group.name;$('groupAvatar').textContent=group.name.charAt(0).toUpperCase();
+    stopPrivateRealtime();
+    try{await ensureSupabaseAuth();startGroupRealtime(group.id);}catch(error){console.error(error);$('groupMessages').innerHTML='<div class="empty"><strong>Could not connect to group chat</strong><span>Check Supabase configuration and group table policies.</span></div>';}
+}
+
+/* =====================================================
+   GROUP MESSAGE
+===================================================== */
+
+async function sendGroupMessage(text){
+    if(!currentGroup)return;
+    try{
+        const user=await ensureSupabaseAuth();
+        const {error}=await supabase.from('messages').insert({sender_id:user.id,recipient_id:null,room_type:'group',group_id:currentGroup.id,username:getUsername(),content:String(text||'').trim()});
+        if(error)throw error;
+    }catch(error){console.error('Group message send failed:',error);showToast('Could not send group message. Check group membership and Supabase RLS.');}
+}
+
+/* Group messages are now delivered through Supabase Realtime. */
+
+/* =====================================================
+   PUBLIC
+===================================================== */
+
+async function startSupabasePublicMessages(){
+    stopPublicRealtime();
+    const container = $('publicMessages');
+    if(!container) return;
+    try{
+        await ensureSupabaseAuth();
+        const refresh = async () => {
+            const {data,error}=await supabase.from('messages').select('*')
+                .eq('room_type','public').order('created_at',{ascending:false}).limit(100);
+            if(error) throw error;
+            if(currentMode!=='public') return;
+            const rows=await addDisplayNames((data||[]).reverse());
+            container.innerHTML='';
+            if(!rows.length){
+                container.innerHTML='<div class="empty"><div class="empty-icon">☏</div><strong>No public messages yet</strong><span>Start the conversation.</span></div>';
+                return;
+            }
+            rows.forEach(row=>{
+                const mine=row.sender_id===currentUserId;
+                const el=document.createElement('div');
+                el.className='message-row '+(mine?'mine':'theirs');
+                const bubble=document.createElement('div'); bubble.className='bubble';
+                if(!mine){const who=document.createElement('strong');who.className='message-sender-name';who.textContent=row.displayName||row.username||'Friend';who.style.cssText='display:block;font-size:11px;margin-bottom:4px;opacity:.82';bubble.appendChild(who);}
+                const body=document.createElement('div');body.textContent=String(row.content||'');bubble.appendChild(body);
+                const time=document.createElement('span');time.className='time';time.textContent=row.created_at?new Date(row.created_at).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}):'';bubble.appendChild(time);
+                el.appendChild(bubble);container.appendChild(el);
+            });
+            container.scrollTop=container.scrollHeight;
+        };
+        await refresh();
+        publicRealtimeChannel=supabase.channel('public-messages-live')
+            .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},payload=>{
+                if(payload.new?.room_type==='public'){
+                    if(payload.new.sender_id!==currentUserId) playMessageNotification();
+                    refresh().catch(e=>console.error('Public message refresh failed:',e));
+                }
+            }).subscribe(status=>{if(status==='CHANNEL_ERROR') console.error('Public realtime channel error');});
+        supabaseRealtimeChannels.push(publicRealtimeChannel);
+    }catch(error){
+        console.error('Could not load public messages:',error);
+        container.innerHTML='<div class="empty"><strong>Could not connect to public chat</strong><span>Check the messages table and Supabase RLS policies.</span></div>';
+    }
+}
+
+async function openPublicChat(){
+    currentMode = "public";
+    currentFriend = null;
+    currentGroup = null;
+    stopPrivateRealtime();
+    hidePages();
+    $("publicPage").classList.add("active");
+    updateComposer();
+    updateNavigationVisibility();
+    startSupabasePublicMessages();
+}
+
+async function sendPublicMessage(text){
+    const cleanText = String(text || "").trim();
+    const username = normalizeUsername(getUsername());
+    if(!cleanText) return;
+    if(!username || username === "@username"){
+        showToast("Set your username in your profile first");
+        return;
+    }
+    try{
+        const user=await ensureSupabaseAuth();
+        const {error}=await supabase.from('messages').insert({sender_id:user.id,recipient_id:null,room_type:'public',username,content:cleanText});
+        if(error)throw error;
+    }catch(error){console.error('Could not send Supabase public message:',error);showToast('Could not send public message. Check Supabase setup and RLS.');throw error;}
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function hidePages(){
+
+    stopPublicRealtime();
+
+    document
+        .querySelectorAll(
+            ".page"
+        )
+        .forEach(
+            page =>
+                page.classList.remove(
+                    "active"
+                )
+        );
+}
+
+
+function setActiveNav(
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".nav-btn"
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "active"
+                )
+        );
+
+
+    if(button){
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOW HOME
+===================================================== */
+
+function showHome(){
+
+    // On desktop, the left sidebar stays visible and Home/back returns the right pane to Public chat.
+    if (window.matchMedia("(min-width: 900px)").matches) {
+        openPublicChat();
+        setActiveNav($("navHome"));
+        renderFriends();
+        renderGroups();
+        return;
+    }
+
+    currentMode =
+        "home";
+
+    currentFriend =
+        null;
+
+    currentGroup =
+        null;
+
+
+    hidePages();
+
+
+    $("homePage")
+        .classList.add(
+            "active"
+        );
+
+
+    updateComposer();
+
+    updateNavigationVisibility();
+
+
+    setActiveNav(
+        $("navHome")
+    );
+
+
+    renderFriends();
+
+    renderGroups();
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function openSearch(){
+
+    showHome();
+
+
+    setActiveNav(
+        $("navSearch")
+    );
+
+
+    setTimeout(
+        ()=>{
+            $("friendSearch")
+                .focus();
+        },
+        100
+    );
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function openProfile(){
+
+    updateProfile();
+
+    openModal(
+        "profileOverlay"
+    );
+
+    $("bottomNav")
+        .classList
+        .add("hidden");
+
+    $("homeHeader")
+        .style.display =
+        "none";
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function openNotifications(){
+
+    renderNotifications();
+
+    openModal(
+        "notificationsOverlay"
+    );
+
+    $("bottomNav")
+        .classList
+        .add("hidden");
+
+    $("homeHeader")
+        .style.display =
+        "none";
+}
+
+
+/* =====================================================
+   PROFILE → SETTINGS
+===================================================== */
+
+$("profileSettingsButton")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            closeModal(
+                "profileOverlay"
+            );
+
+            openSettings();
+
+        }
+    );
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function openSettings(){
+
+    $("nameInput").value =
+        getName();
+
+
+    $("usernameInput").value =
+        getUsername();
+
+
+    openModal(
+        "settingsOverlay"
+    );
+
+}
+
+
+$("saveSettingsButton")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            const name =
+                $("nameInput")
+                    .value
+                    .trim();
+
+
+            const username =
+                normalizeUsername(
+                    $("usernameInput")
+                        .value
+                );
+
+
+            if(!name){
+
+                showToast(
+                    "Enter your name"
+                );
+
+                return;
+            }
+
+
+            if(!username){
+
+                showToast(
+                    "Enter a username"
+                );
+
+                return;
+            }
+
+
+            saveName(
+                name
+            );
+
+            saveUsername(
+                username
+            );
+
+            updateGreeting();
+
+            updateProfile();
+
+
+            closeModal(
+                "settingsOverlay"
+            );
+
+
+            showToast(
+                "Settings saved"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+$("friendSearch")
+    .addEventListener(
+        "input",
+        ()=>{
+            renderFriends();
+            renderGroups();
+        }
+    );
+
+
+$("addFriendQuick")
+    .addEventListener(
+        "click",
+        openAddFriend
+    );
+
+
+$("groupQuick")
+    .addEventListener(
+        "click",
+        openGroupCreator
+    );
+
+
+$("publicQuick")
+    .addEventListener(
+        "click",
+        openPublicChat
+    );
+
+
+$("navHome")
+    .addEventListener(
+        "click",
+        showHome
+    );
+
+
+$("navSearch")
+    .addEventListener(
+        "click",
+        openSearch
+    );
+
+
+$("navProfile")
+    .addEventListener(
+        "click",
+        openProfile
+    );
+
+
+$("navNotifications")
+    .addEventListener(
+        "click",
+        openNotifications
+    );
+
+
+$("saveFriendButton")
+    .addEventListener(
+        "click",
+        searchRegisteredUser
+    );
+
+
+$("createGroupButton")
+    .addEventListener(
+        "click",
+        createGroup
+    );
+
+
+$("privateBack")
+    .addEventListener(
+        "click",
+        showHome
+    );
+
+
+$("groupBack")
+    .addEventListener(
+        "click",
+        showHome
+    );
+
+
+$("publicBack")
+    .addEventListener(
+        "click",
+        showHome
+    );
+
+
+$("sendButton")
+    .addEventListener(
+        "click",
+        sendMessage
+    );
+
+
+$("messageInput")
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if(
+                event.key === "Enter"
+            ){
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+$("attachButton")
+    .addEventListener(
+        "click",
+        ()=>{
+            showToast(
+                "Attachments coming soon"
+            );
+        }
+    );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+async function startApp(){
+    if(localStorage.getItem("friends_guest_login_completed_v1")==="yes" && supabaseConfigured){
+      try{
+        const user=await ensureSupabaseAuth();
+        const {data:status,error}=await supabase.rpc('check_my_account_status');
+        if(error) throw error;
+        if(status===false || status?.active===false){
+          try{await supabase.auth.signOut()}catch(_){}
+          localStorage.clear();
+          alert('This account is disabled or deleted. Please create a new account.');
+          location.reload();return;
+        }
+      }catch(e){console.warn('Account status check unavailable:',e);}
+    }
+
+    const guestLoginCompleted = localStorage.getItem("friends_guest_login_completed_v1") === "yes";
+    const guestLogin = $("guestLogin");
+    if(!guestLoginCompleted){
+        if(guestLogin) guestLogin.classList.remove("hidden");
+        return;
+    }
+    if(guestLogin) guestLogin.classList.add("hidden");
+
+    updateGreeting();
+
+    updateProfile();
+
+    loadFriends();
+
+    loadGroups();
+
+    loadNotifications();
+    try { await ensureSupabaseAuth(); await registerGuestProfile(getName(), getUsername()); await loadAcceptedFriends(); await loadRemoteGroups(); startRequestListeners(); } catch(error) { console.error(error); if(supabaseConfigured) showToast("Supabase setup needs attention"); }
+
+
+    currentMode =
+        "home";
+
+
+    hidePages();
+
+
+    $("homePage")
+        .classList.add(
+            "active"
+        );
+
+
+    updateComposer();
+
+    updateNavigationVisibility();
+
+    setActiveNav(
+        $("navHome")
+    );
+
+
+    try{
+
+        await initDB();
+
+    }catch(error){
+
+        console.warn(
+            "IndexedDB error:",
+            error
+        );
+
+    }
+
+    // Desktop opens directly into Public chat while the friend/group list stays visible.
+    if (window.matchMedia("(min-width: 900px)").matches) {
+        await openPublicChat();
+    }
+
+}
+
+
+
+// Live username search: results update as each character is typed.
+let friendsSearchDebounce=null;
+$('friendUsernameInput')?.addEventListener('input',()=>{
+ clearTimeout(friendsSearchDebounce);
+ friendsSearchDebounce=setTimeout(searchRegisteredUser,180);
+});
+$('deleteAccountButton')?.addEventListener('click',async()=>{
+ if(!confirm('Delete your Friends account permanently? Your profile and friend links will be removed. This cannot be undone.'))return;
+ try{
+  const user=await ensureSupabaseAuth();
+  const {error}=await supabase.rpc('delete_my_account');
+  if(error)throw error;
+  try{await supabase.auth.signOut()}catch(_){}
+  localStorage.clear();
+  alert('Your account was deleted. Create a new account to use Friends again.');
+  location.reload();
+ }catch(e){console.error(e);alert('Account deletion needs the Supabase SQL migration provided with this file. No account was confirmed deleted.');}
+});
+
+// First-visit guest login: save a local display name and username before opening the app.
+$("guestLoginForm").addEventListener("submit", async (event)=>{
+    event.preventDefault();
+    const name = $("guestNameInput").value.trim();
+    const username = normalizeUsername($("guestUsernameInput").value);
+    if(!name){ $("guestNameInput").focus(); return; }
+    if(!username || !/^@[a-zA-Z0-9_.-]{2,24}$/.test(username)){
+        $("guestUsernameInput").setCustomValidity("Use 2–24 letters, numbers, dots, underscores, or hyphens.");
+        $("guestUsernameInput").reportValidity();
+        $("guestUsernameInput").addEventListener("input", ()=>$("guestUsernameInput").setCustomValidity(""), {once:true});
+        return;
+    }
+    try {
+        await registerGuestProfile(name, username);
+    } catch(error) {
+        console.error(error);
+        const message=error?.message || "Could not register this username. Check Supabase setup and try again.";
+        if(message.includes("already registered")) {
+            $("guestUsernameInput").setCustomValidity(message);
+            $("guestUsernameInput").reportValidity();
+            $("guestUsernameInput").addEventListener("input", ()=>$("guestUsernameInput").setCustomValidity(""), {once:true});
+        } else {
+            alert("Could not register your profile with Supabase. Make sure the SQL setup has been run and RLS policies allow profile creation. Details: " + message);
+        }
+        return;
+    }
+    saveName(name);
+    saveUsername(username);
+    localStorage.setItem("friends_guest_login_completed_v1", "yes");
+    $("guestLogin").classList.add("hidden");
+    await startApp();
+});
+
+// Populate saved values if the visitor has already used this browser.
+if(localStorage.getItem("friends_username") && localStorage.getItem("friends_username") !== "@username"){
+    $("guestNameInput").value = localStorage.getItem("friends_name") || "";
+    $("guestUsernameInput").value = String(localStorage.getItem("friends_username") || "").replace(/^@/, "");
+}
+
+startApp();
+
+let friendsDesktopWas = window.matchMedia("(min-width: 900px)").matches;
+window.addEventListener("resize", () => {
+    const isDesktop = window.matchMedia("(min-width: 900px)").matches;
+    if (isDesktop && !friendsDesktopWas && currentMode === "home" && localStorage.getItem("friends_guest_login_completed_v1") === "yes") {
+        openPublicChat();
+    }
+    friendsDesktopWas = isDesktop;
+});
+
+
+/* =====================================================
+   REFRESH NOTIFICATION TIMES
+===================================================== */
+
+setInterval(
+    ()=>{
+
+        if(
+            $("notificationsOverlay")
+                .classList
+                .contains("show")
+        ){
+
+            renderNotifications();
+
+        }
+
+    },
+    60000
+);
+
+
+// Re-check account status while the app is open so a banned account is forced back to login.
+setInterval(async()=>{
+ if(localStorage.getItem('friends_guest_login_completed_v1')!=='yes'||!supabaseConfigured)return;
+ try{
+  const {data,error}=await supabase.rpc('check_my_account_status');
+  if(error) return;
+  if(data===false){
+   try{await supabase.auth.signOut()}catch(_){}
+   localStorage.clear();
+   alert('This account is disabled or deleted. Please create a new account.');
+   location.reload();
+  }
+ }catch(_){}
+},20000);
+
+/* Persistent custom theme selector */
+(function initFriendsThemes(){
+  const allowed = new Set(["green"]);
+  function applyTheme(theme, persist=true){
+    if(!allowed.has(theme)) theme="green";
+    document.body.dataset.theme=theme;
+    document.querySelectorAll("[data-theme-choice]").forEach(button=>{
+      const active=button.dataset.themeChoice===theme;
+      button.setAttribute("aria-pressed",active?"true":"false");
+    });
+    if(persist){try{localStorage.setItem("friends_custom_theme_v1",theme)}catch(e){}}
+  }
+  let saved="green";
+  try{saved=localStorage.getItem("friends_custom_theme_v1")||"green"}catch(e){}
+  applyTheme(saved,false);
+  document.querySelectorAll("[data-theme-choice]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      applyTheme(button.dataset.themeChoice,true);
+      if(typeof showToast==="function") showToast("Rich Green theme applied");
+    });
+  });
+})();
+
+
+/* Profile discovery, friend list, unfriend, and long-press chat removal */
+let viewedProfile=null;
+function profileIsFriend(profile){
+ return friends.some(f=>String(f.userId||f.id)===String(profile.user_id)||String(f.username||'').toLowerCase()===String(profile.username||'').toLowerCase());
+}
+async function openPersonProfile(profile){
+ if(!profile)return; viewedProfile=profile;
+ const isFriend=profileIsFriend(profile);
+ const safeName=escapeHTML(profile.name||profile.username||'Friend'), safeUser=escapeHTML(profile.username||'@username');
+ $('personProfileContent').innerHTML=`<div class="profile-view-card"><div class="profile-main"><div class="profile-avatar">${safeName.charAt(0).toUpperCase()}</div><div class="profile-info"><div class="profile-name">${safeName}</div><div class="profile-username">${safeUser}</div></div></div><div class="profile-status-line">${isFriend?'✓ Friends':'Friends profile'}</div><div class="viewed-friends-wrap"><h3>Friends <span id="viewedFriendsCount">…</span></h3><div id="viewedFriendsList"><p class="profile-muted">Loading friends…</p></div></div><div class="profile-view-actions">${isFriend?'<button id="personMessageButton">Message</button><button class="danger" id="personUnfriendButton">Unfriend</button>':'<button id="personAddButton">＋ Add friend</button>'}</div></div>`;
+ openModal('personProfileOverlay');
+ if(isFriend){
+  $('personMessageButton').onclick=()=>{closeModal('personProfileOverlay');const f=friends.find(x=>String(x.userId||x.id)===String(profile.user_id)||String(x.username||'').toLowerCase()===String(profile.username||'').toLowerCase());if(f)openChat(f.id);};
+  $('personUnfriendButton').onclick=()=>unfriendProfile(profile);
+ }else $('personAddButton').onclick=()=>sendFriendRequest(profile.user_id,profile);
+ try{
+  await ensureSupabaseAuth();
+  const {data:rels,error}=await supabase.from('friend_requests').select('from_id,to_id').eq('status','accepted').or(`from_id.eq.${profile.user_id},to_id.eq.${profile.user_id}`);
+  if(error)throw error;
+  const ids=[...new Set((rels||[]).map(r=>r.from_id===profile.user_id?r.to_id:r.from_id))].filter(id=>id!==profile.user_id);
+  let people=[];
+  if(ids.length){const {data,error:pe}=await supabase.from('profiles').select('user_id,username,username_key,name').in('user_id',ids);if(pe)throw pe;people=data||[];}
+  const count=$('viewedFriendsCount'), list=$('viewedFriendsList');if(count)count.textContent=String(people.length);
+  if(list)list.innerHTML=people.length?people.map((p,i)=>`<div class="people-result" data-view-friend="${i}"><div class="avatar">${escapeHTML((p.name||p.username||'?').charAt(0).toUpperCase())}</div><div class="person-meta"><b>${escapeHTML(p.name||'Friend')}</b><small>${escapeHTML(p.username||'@username')}</small></div><span>View →</span></div>`).join(''):'<p class="profile-muted">No friends to show yet.</p>';
+  list?.querySelectorAll('[data-view-friend]').forEach(el=>el.onclick=()=>openPersonProfile(people[Number(el.dataset.viewFriend)]));
+ }catch(e){console.warn('Could not load public friend list',e);const l=$('viewedFriendsList');if(l)l.innerHTML='<p class="profile-muted">Friend list is unavailable or private.</p>';const c=$('viewedFriendsCount');if(c)c.textContent='—';}
+}
+
+async function unfriendProfile(profile){
+ // Immediate unfriend action; server RLS must also block messages after relationship removal.
+ try{
+  const user=await ensureSupabaseAuth();
+  const {error}=await supabase.from('friend_requests').delete().eq('status','accepted').or(`and(from_id.eq.${user.id},to_id.eq.${profile.user_id}),and(from_id.eq.${profile.user_id},to_id.eq.${user.id})`);
+  if(error)throw error;
+  friends=friends.filter(f=>String(f.userId||f.id)!==String(profile.user_id)&&String(f.username||'').toLowerCase()!==String(profile.username||'').toLowerCase());
+  saveFriends();renderFriends();
+  if(currentFriend&&(String(currentFriend.userId||currentFriend.id)===String(profile.user_id)||String(currentFriend.username||'').toLowerCase()===String(profile.username||'').toLowerCase())){currentFriend=null;showHome();}
+  closeModal('personProfileOverlay');renderProfileFriends();showToast('Friend removed');
+ }catch(e){console.error(e);showToast('Could not unfriend. Check friend_requests DELETE policy in Supabase.');}
+}
+function renderProfileFriends(){
+ const count=$('profileFriendsCount');if(count)count.textContent=String(friends.length);
+ const list=$('profileFriendsList');if(!list)return;
+ if(!friends.length){list.innerHTML='<div class="empty"><strong>No friends yet</strong><span>Search for a username and add friends.</span></div>';return;}
+ list.innerHTML=friends.map(f=>`<div class="people-result" data-friend-profile="${escapeHTML(f.id)}"><div class="avatar">${escapeHTML((f.name||'?').charAt(0).toUpperCase())}</div><div class="person-meta"><b>${escapeHTML(f.name||'Friend')}</b><small>${escapeHTML(f.username||'@username')}</small></div><span>View →</span></div>`).join('');
+ list.querySelectorAll('[data-friend-profile]').forEach(el=>el.onclick=async()=>{const f=friends.find(x=>String(x.id)===el.dataset.friendProfile);if(!f)return;try{await ensureSupabaseAuth();const {data:p}=await supabase.from('profiles').select('user_id,username,username_key,name').eq('username_key',profileKey(f.username)).maybeSingle();if(p)openPersonProfile(p);else openPersonProfile({user_id:f.userId||f.id,username:f.username,name:f.name});}catch(_){openPersonProfile({user_id:f.userId||f.id,username:f.username,name:f.name});}});
+}
+function enableChatLongPress(){
+ const list=$('friendList');if(!list||list.dataset.longPressBound)return;list.dataset.longPressBound='1';
+ let timer=null, target=null, fired=false;
+ const cancel=()=>{if(timer)clearTimeout(timer);timer=null;if(target)target.classList.remove('long-pressing');target=null;};
+ list.addEventListener('pointerdown',e=>{const card=e.target.closest('[data-friend-id]');if(!card)return;target=card;fired=false;card.classList.add('long-pressing');timer=setTimeout(()=>{fired=true;const id=card.dataset.friendId;cancel();let action=card.querySelector('.delete-chat-action');if(!action){action=document.createElement('button');action.type='button';action.className='delete-chat-action';action.textContent='Delete chat';action.setAttribute('aria-label','Delete chat');action.addEventListener('click',ev=>{ev.stopPropagation();const hidden=JSON.parse(localStorage.getItem('friends_hidden_chats')||'[]');if(!hidden.includes(String(id)))hidden.push(String(id));localStorage.setItem('friends_hidden_chats',JSON.stringify(hidden));card.remove();if(currentFriend&&String(currentFriend.id)===String(id))showHome();showToast('Chat removed. Friendship and server messages remain.');});card.appendChild(action);}card.classList.add('chat-delete-ready');card.dataset.longPressHandled='1';},650);});
+ ['pointerup','pointerleave','pointercancel'].forEach(ev=>list.addEventListener(ev,cancel));
+ list.addEventListener('click',e=>{const card=e.target.closest('[data-friend-id]');
+  if(e.target.closest('.delete-chat-action'))return;
+  if(card&&card.dataset.longPressHandled){e.preventDefault();e.stopImmediatePropagation();delete card.dataset.longPressHandled;return;}
+  // Any tap outside the active card/action dismisses the delete control.
+  document.querySelectorAll('.friend.chat-delete-ready').forEach(openCard=>{if(!openCard.contains(e.target)){openCard.classList.remove('chat-delete-ready');delete openCard.dataset.longPressHandled;}});
+ },true);
+ document.addEventListener('pointerdown',e=>{if(!e.target.closest('.friend.chat-delete-ready')){document.querySelectorAll('.friend.chat-delete-ready').forEach(openCard=>{openCard.classList.remove('chat-delete-ready');delete openCard.dataset.longPressHandled;});}});
+}
+$('profileAddFriendButton')?.addEventListener('click',()=>{openModal('addFriendOverlay');$('friendUsernameInput').focus();});
+$('profileFriendsButton')?.addEventListener('click',()=>{renderProfileFriends();openModal('friendsListOverlay');});
+const oldUpdateProfile=updateProfile;
+updateProfile=function(){oldUpdateProfile();renderProfileFriends();};
+const oldRenderFriends=renderFriends;
+renderFriends=function(){oldRenderFriends();const hidden=new Set(JSON.parse(localStorage.getItem('friends_hidden_chats')||'[]').map(String));$('friendList')?.querySelectorAll('[data-friend-id]').forEach(el=>{if(hidden.has(String(el.dataset.friendId)))el.remove();});enableChatLongPress();renderProfileFriends();};
+// Keep profile friend counters/lists fresh while the app is open.
+let profileRefreshBusy=false;
+async function refreshVisibleProfileData(){
+ if(profileRefreshBusy||!supabase||!currentUserId)return;
+ profileRefreshBusy=true;
+ try{
+  if(viewedProfile && $('personProfileOverlay')?.classList.contains('show')){
+   // Reload the viewed profile's accepted relationships without reopening the sheet.
+   const profile=viewedProfile;
+   const {data:rels,error}=await supabase.from('friend_requests').select('from_id,to_id').eq('status','accepted').or(`from_id.eq.${profile.user_id},to_id.eq.${profile.user_id}`);
+   if(!error){
+    const ids=[...new Set((rels||[]).map(r=>r.from_id===profile.user_id?r.to_id:r.from_id))].filter(id=>id!==profile.user_id);
+    let people=[];
+    if(ids.length){const {data}=await supabase.from('profiles').select('user_id,username,username_key,name').in('user_id',ids);people=data||[];}
+    const count=$('viewedFriendsCount'),list=$('viewedFriendsList');if(count)count.textContent=String(people.length);
+    if(list){list.innerHTML=people.length?people.map((p,i)=>`<div class="people-result" data-view-friend="${i}"><div class="avatar">${escapeHTML((p.name||p.username||'?').charAt(0).toUpperCase())}</div><div class="person-meta"><b>${escapeHTML(p.name||'Friend')}</b><small>${escapeHTML(p.username||'@username')}</small></div><span>View →</span></div>`).join(''):'<p class="profile-muted">No friends to show yet.</p>';list.querySelectorAll('[data-view-friend]').forEach(el=>el.onclick=()=>openPersonProfile(people[Number(el.dataset.viewFriend)]));}
+   }
+  }
+  renderProfileFriends();
+ }catch(e){console.debug('Profile refresh skipped',e)}finally{profileRefreshBusy=false;}
+}
+setInterval(()=>{if(!document.hidden)refreshVisibleProfileData()},15000);
+window.addEventListener('focus',refreshVisibleProfileData);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshVisibleProfileData()});
+
+const originalOpenChat=openChat;
+openChat=async function(friendId){
+ const friend=friends.find(f=>String(f.id)===String(friendId));if(!friend)return;
+ try{
+  const user=await ensureSupabaseAuth();
+  const peerId=friend.userId||friend.id;
+  if(String(peerId).match(/^[0-9a-f-]{36}$/i)){
+   const {data,error}=await supabase.from('friend_requests').select('id').eq('status','accepted').or(`and(from_id.eq.${user.id},to_id.eq.${peerId}),and(from_id.eq.${peerId},to_id.eq.${user.id})`).limit(1);
+   if(error)throw error;if(!data?.length){showToast('You must be friends to message this person');return;}
+  }
+ }catch(e){console.warn('Friend status check:',e);showToast('Could not verify friendship. Check Supabase policies.');return;}
+ return originalOpenChat(friendId);
+};
+
+</script>
+
+
+<div id="personProfileOverlay" class="overlay profile-view-overlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>Profile</h2><button class="close" data-close="personProfileOverlay" aria-label="Close">×</button></div>
+    <div id="personProfileContent"></div>
+  </div>
+</div>
+<div id="friendsListOverlay" class="overlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>Your friends</h2><button class="close" data-close="friendsListOverlay" aria-label="Close">×</button></div>
+    <div id="profileFriendsList"></div>
+  </div>
+</div>
+
+
+<style>
+.message-seen-receipt{display:block;text-align:right;font-size:10px;line-height:1.2;margin-top:3px;color:#8be8b4;font-weight:700;letter-spacing:.15px}
+#chatState{transition:color .2s ease}
+</style>
+<script>
+/* Friends real-time presence heartbeat. Requires the SQL migration below. */
+(function(){
+ let heartbeat=null, presenceChannel=null, lastPresenceUser=null, presenceBusy=false;
+ async function setPresence(online){
+   if(presenceBusy||!supabaseConfigured)return; presenceBusy=true;
+   try{const user=await ensureSupabaseAuth();lastPresenceUser=user.id;
+     const {error}=await supabase.from('profiles').update({is_online:!!online,last_seen_at:new Date().toISOString()}).eq('user_id',user.id);
+     if(error)throw error;
+   }catch(e){console.warn('Presence update unavailable; run the presence/seen SQL migration.',e)}finally{presenceBusy=false}
+ }
+ async function start(){
+   if(!supabaseConfigured)return;
+   await setPresence(!document.hidden);
+   if(heartbeat)clearInterval(heartbeat);
+   heartbeat=setInterval(()=>setPresence(!document.hidden),20000);
+   document.addEventListener('visibilitychange',()=>setPresence(!document.hidden));
+   window.addEventListener('pagehide',()=>setPresence(false));
+   window.addEventListener('beforeunload',()=>setPresence(false));
+ }
+ document.addEventListener('DOMContentLoaded',start);
+ if(document.readyState!=='loading')start();
+})();
+</script>
+
+</body>
+</html>
